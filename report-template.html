@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laporan Aktivitas Awardee</title>
+  <style>
+    /* ===== PRINT/PDF SETUP ===== */
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+    }
+
+    /* Keep single page feel */
+    .page {
+      width: 100%;
+      min-height: calc(297mm - 24mm); /* A4 height minus margins (approx) */
+    }
+
+    /* ===== THEME ===== */
+    :root{
+      --brand: #00A79D;      /* BSI teal */
+      --brand-dark: #0f766e;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --bg-soft: #f8fafc;
+
+      --ok: #22c55e;
+      --ok-ink: #16a34a;
+      --ok-bg: #e9f7ef;
+
+      --no: #ef4444;
+      --no-ink: #dc2626;
+      --no-bg: #fdeaea;
+
+      --tp: #f59e0b;
+      --tp-ink: #92400e;
+      --tp-bg: #fef9e7;
+    }
+
+    /* ===== LAYOUT ===== */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
+    }
+
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 6px;
+    }
+    .brand-title {
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .report-title {
+      font-size: 16px;
+      font-weight: 900;
+      margin: 0 0 6px 0;
+    }
+    .report-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .pill strong { color: var(--ink); }
+
+    .identity {
+      border-left: 1px dashed var(--line);
+      padding-left: 12px;
+    }
+    .identity-grid {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 6px 10px;
+      font-size: 12px;
+    }
+    .identity-grid .k { color: var(--muted); }
+    .identity-grid .v { font-weight: 700; }
+
+    /* ===== KPI ROW ===== */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 10px;
+      background: #fff;
+      min-height: 54px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .kpi .label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .kpi .value {
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .kpi .hint {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    /* ===== STATUS BADGE (icon-in-circle) ===== */
+    .status-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      line-height: 1;
+      font-size: 10px;
+      font-weight: 900;
+      box-sizing: border-box;
+      flex: 0 0 auto;
+    }
+    .status-ok { background: var(--ok-bg); border: 2px solid var(--ok); }
+    .status-ok::after { content: "✓"; position:absolute; color: var(--ok-ink); font-size: 13px; transform: translateY(-1px); }
+    .status-no { background: var(--no-bg); border: 2px solid var(--no); }
+    .status-no::after { content: "×"; position:absolute; color: var(--no-ink); font-size: 15px; transform: translateY(-1px); }
+    .status-tp { background: var(--tp-bg); border: 2px solid var(--tp); color: var(--tp-ink); font-size: 9px; }
+
+    /* ===== MAIN GRID ===== */
+    .content {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px 12px;
+    }
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .muted { color: var(--muted); }
+
+    /* ===== TABLE ===== */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    thead th {
+      text-align: left;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 800;
+      padding: 8px 8px;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 8px 8px;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: middle;
+    }
+    .td-center { text-align: center; }
+    .col-month { width: 92px; white-space: nowrap; }
+
+    /* ===== ANALYSIS BOX ===== */
+    .analysis {
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--bg-soft);
+      padding: 10px 10px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .analysis strong { color: var(--ink); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      margin-top: 12px;
+      border-top: 1px solid var(--line);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+    .footer .right { text-align: right; }
+
+    /* PDF safety: avoid unexpected breaks */
+    .no-break { break-inside: avoid; page-break-inside: avoid; }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- ===== HEADER ===== -->
+    <section class="header no-break">
+      <div>
+        <div class="brand">
+          <img class="brand-logo" id="logo" src="assets/logo.png" alt="BSI Scholarship" />
+          <div>
+            <div class="brand-title">Inspirasi BSI Scholarship</div>
+            <div class="brand-subtitle">Batch 5 • Laporan Aktivitas Awardee</div>
+          </div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <h1 class="report-title" id="reportTitle">Laporan Aktivitas Awardee – TW I 2025</h1>
+          <div class="report-meta">
+            <span class="pill">Periode: <strong id="periodText">Jan – Mar 2025</strong></span>
+            <span class="pill">Generated: <strong id="generatedAt">2025-03-31 23:59</strong></span>
+            <span class="pill">Sumber: <strong>BSI Scholarship Hub</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="identity">
+        <div class="identity-grid">
+          <div class="k">Nama</div><div class="v" id="name">A. Asti Akbar</div>
+          <div class="k">No Induk</div><div class="v" id="noInduk">I24xxxxx</div>
+          <div class="k">Kampus</div><div class="v" id="kampus">Universitas …</div>
+          <div class="k">Kelompok</div><div class="v" id="kelompok">Mentoring 3</div>
+          <div class="k">Catatan</div><div class="v muted" id="note">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== KPI ===== -->
+    <section class="kpi-row no-break" style="margin-top:12px;">
+      <div class="kpi">
+        <div class="label">Pre-Test</div>
+        <div class="value"><span id="kpiPre">100%</span></div>
+        <div class="hint" id="kpiPreHint">3/3 bulan</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Post-Test</div>
+        <div class="value"><span id="kpiPost">66%</span></div>
+        <div class="hint" id="kpiPostHint">2/3 bulan</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Assessment</div>
+        <div class="value"><span id="kpiAssessment">100%</span></div>
+        <div class="hint" id="kpiAssessmentHint">3/3 bulan</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Mentoring</div>
+        <div class="value"><span id="kpiMentoring">3/3</span></div>
+        <div class="hint" id="kpiMentoringHint">Konsisten</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Pembinaan</div>
+        <div class="value"><span id="kpiPembinaan">TP</span></div>
+        <div class="hint" id="kpiPembinaanHint">Tidak diwajibkan</div>
+      </div>
+    </section>
+
+    <!-- ===== CONTENT ===== -->
+    <section class="content" style="margin-top:12px;">
+
+      <!-- LEFT: DETAIL TABLE -->
+      <div class="card no-break">
+        <h3>Detail Per Bulan</h3>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-month">Bulan</th>
+              <th class="td-center">Pre</th>
+              <th class="td-center">Post</th>
+              <th class="td-center">Assess</th>
+              <th class="td-center">Mentor</th>
+              <th class="td-center">Pemb</th>
+            </tr>
+          </thead>
+          <tbody id="detailBody">
+            <!-- contoh baris (akan digenerate oleh JS) -->
+            <tr>
+              <td class="col-month">Jan 2025</td>
+              <td class="td-center"><span class="status-badge status-ok"></span></td>
+              <td class="td-center"><span class="status-badge status-no"></span></td>
+              <td class="td-center"><span class="status-badge status-ok"></span></td>
+              <td class="td-center"><span class="status-badge status-ok"></span></td>
+              <td class="td-center"><span class="status-badge status-tp">TP</span></td>
+            </tr>
+            <tr>
+              <td class="col-month">Feb 2025</td>
+              <td class="td-center"><span class="status-badge status-ok"></span></td>
+              <td class="td-center"><span class="status-badge status-ok"></span></td>
+              <td class="td-center"><span class="status-badge status-ok"></span></td>
+              <td class="td-center"><span class="status-badge status-ok"></span></td>
+              <td class="td-center"><span class="status-badge status-tp">TP</span></td>
+            </tr>
+            <tr>
+              <td class="col-month">Mar 2025</td>
+              <td class="td-center"><span class="status-badge status-ok"></span></td>
+              <td class="td-center"><span class="status-badge status-no"></span></td>
+              <td class="td-center"><span class="status-badge status-ok"></span></td>
+              <td class="td-center"><span class="status-badge status-no"></span></td>
+              <td class="td-center"><span class="status-badge status-tp">TP</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- RIGHT: SUMMARY + ANALYSIS -->
+      <div class="card no-break">
+        <h3>Ringkasan & Insight</h3>
+
+        <div class="analysis" id="analysisBox">
+          <strong>Kesimpulan singkat.</strong>
+          Selama periode <span id="analysisPeriod">Jan–Mar 2025</span>, awardee menunjukkan konsistensi yang baik pada
+          <strong>Assessment</strong> dan <strong>Mentoring</strong>. Terdapat ketidakkonsistenan pada
+          <strong>Post-Test</strong> di beberapa bulan. Pembinaan tidak diwajibkan pada periode ini (TP).
+        </div>
+
+        <div style="height:10px;"></div>
+
+        <div class="analysis">
+          <strong>Rekomendasi tindak lanjut.</strong>
+          <ul style="margin:6px 0 0 18px; padding:0;">
+            <li>Prioritaskan penyelesaian Post-Test pada bulan yang belum lengkap.</li>
+            <li>Jaga konsistensi mentoring; gunakan reminder 24 jam sebelum jadwal.</li>
+            <li>Simpan bukti submit untuk arsip pribadi.</li>
+          </ul>
+        </div>
+
+        <div style="height:10px;"></div>
+
+        <div class="analysis">
+          <strong>Catatan admin/mentor.</strong>
+          <div class="muted" id="mentorNote" style="margin-top:6px;">—</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div>
+        © 2025 BSI Scholarship Hub • Dokumen ini dihasilkan otomatis.
+      </div>
+      <div class="right">
+        ID Report: <span id="reportId">BSI-REP-000001</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ===== OPTIONAL: DATA INJECTION (untuk testing di browser) ===== -->
+  <script>
+    /**
+     * Anda bisa menghapus script ini di produksi dan menggantinya dengan
+     * inject data dari server saat render PDF.
+     *
+     * Pola rekomendasi:
+     * - Isi variable `window.__REPORT_DATA__` sebelum load template
+     * - Script ini akan render otomatis
+     */
+
+    function badgeHtml(val) {
+      const v = String(val || "").trim();
+      if (v === "✅") return '<span class="status-badge status-ok"></span>';
+      if (v === "TP") return '<span class="status-badge status-tp">TP</span>';
+      return '<span class="status-badge status-no"></span>';
+    }
+
+    function pct(ok, total) {
+      if (!total) return "0%";
+      return Math.round((ok / total) * 100) + "%";
+    }
+
+    function computeKpi(rows, key) {
+      const total = rows.length;
+      const okCount = rows.filter(r => r[key] === "✅" || r[key] === "TP").length; // sesuai KPI Anda
+      return { total, okCount, text: pct(okCount, total), hint: `${okCount}/${total} bulan` };
+    }
+
+    function renderReport(data) {
+      // Header
+      document.getElementById("reportTitle").textContent = data.title || "Laporan Aktivitas Awardee";
+      document.getElementById("periodText").textContent = data.periodText || "-";
+      document.getElementById("generatedAt").textContent = data.generatedAt || "-";
+
+      document.getElementById("name").textContent = data.identity?.name || "-";
+      document.getElementById("noInduk").textContent = data.identity?.noInduk || "-";
+      document.getElementById("kampus").textContent = data.identity?.kampus || "-";
+      document.getElementById("kelompok").textContent = data.identity?.kelompok || "-";
+      document.getElementById("note").textContent = data.identity?.note || "—";
+
+      document.getElementById("reportId").textContent = data.reportId || "-";
+      document.getElementById("analysisPeriod").textContent = data.periodText || "-";
+      document.getElementById("mentorNote").textContent = data.mentorNote || "—";
+
+      // Detail table
+      const body = document.getElementById("detailBody");
+      body.innerHTML = "";
+      (data.rows || []).forEach(r => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="col-month">${r.month}</td>
+          <td class="td-center">${badgeHtml(r.pre_test)}</td>
+          <td class="td-center">${badgeHtml(r.post_test)}</td>
+          <td class="td-center">${badgeHtml(r.assessment)}</td>
+          <td class="td-center">${badgeHtml(r.mentoring)}</td>
+          <td class="td-center">${badgeHtml(r.pembinaan)}</td>
+        `;
+        body.appendChild(tr);
+      });
+
+      // KPI
+      const rows = data.rows || [];
+      const kPre = computeKpi(rows, "pre_test");
+      const kPost = computeKpi(rows, "post_test");
+      const kAss = computeKpi(rows, "assessment");
+      const kMen = computeKpi(rows, "mentoring");
+      const kPem = computeKpi(rows, "pembinaan");
+
+      document.getElementById("kpiPre").textContent = kPre.text;
+      document.getElementById("kpiPreHint").textContent = kPre.hint;
+
+      document.getElementById("kpiPost").textContent = kPost.text;
+      document.getElementById("kpiPostHint").textContent = kPost.hint;
+
+      document.getElementById("kpiAssessment").textContent = kAss.text;
+      document.getElementById("kpiAssessmentHint").textContent = kAss.hint;
+
+      // mentoring/pembinaan bisa berupa 3/3 atau %
+      document.getElementById("kpiMentoring").textContent = `${kMen.okCount}/${kMen.total}`;
+      document.getElementById("kpiMentoringHint").textContent = kMen.okCount === kMen.total ? "Konsisten" : "Perlu perhatian";
+
+      // pembinaan: jika semua TP, tampilkan TP
+      const allTP = rows.length && rows.every(r => String(r.pembinaan).trim() === "TP");
+      document.getElementById("kpiPembinaan").textContent = allTP ? "TP" : kPem.text;
+      document.getElementById("kpiPembinaanHint").textContent = allTP ? "Tidak diwajibkan" : kPem.hint;
+
+      // Analysis text (opsional override)
+      if (data.analysisText) document.getElementById("analysisBox").innerHTML = data.analysisText;
+    }
+
+    // Demo data (hapus saat produksi)
+    const demo = {
+      title: "Laporan Aktivitas Awardee – TW I 2025",
+      periodText: "Jan – Mar 2025",
+      generatedAt: "2025-03-31 23:59",
+      reportId: "BSI-REP-000001",
+      identity: {
+        name: "A. Asti Akbar",
+        noInduk: "I24xxxxx",
+        kampus: "Universitas …",
+        kelompok: "Mentoring 3",
+        note: "—"
+      },
+      mentorNote: "Perlu memastikan Post-Test bulan Jan & Mar.",
+      rows: [
+        { month: "Jan 2025", pre_test: "✅", post_test: "❌", assessment: "✅", mentoring: "✅", pembinaan: "TP" },
+        { month: "Feb 2025", pre_test: "✅", post_test: "✅", assessment: "✅", mentoring: "✅", pembinaan: "TP" },
+        { month: "Mar 2025", pre_test: "✅", post_test: "❌", assessment: "✅", mentoring: "❌", pembinaan: "TP" },
+      ]
+    };
+
+    // Jika Anda inject window.__REPORT_DATA__ dari server, gunakan itu.
+    renderReport(window.__REPORT_DATA__ || demo);
+  </script>
+</body>
+</html>
