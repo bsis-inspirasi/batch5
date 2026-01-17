@@ -1,0 +1,9 @@
+{
+  "form_url": "https://docs.google.com/forms/d/e/XXXXXX/viewform",
+  "prefill": {
+    "nim": "entry.123456",
+    "nama": "entry.987654",
+    "kampus": "entry.246801",
+    "email": "entry.135790"
+  }
+}

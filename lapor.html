@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kendala | BSI Scholarship Inspirasi — Batch 5</title>
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/logo.png" />
+    <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body data-page="form" data-form-slug="lapor">
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <a href="index.html" class="brand">
+            <img src="assets/logo.png" alt="BSI Scholarship Logo" class="brand-logo">
+            <div class="brand-text">
+                <div class="brand-title">BSI Scholarship Inspirasi</div>
+                <div class="brand-batch">Batch 5</div>
+            </div>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">☰</button>
+
+        <nav class="nav" id="mobileNav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="list-form.html" class="nav-link">List Form</a>
+            <a href="rekap.html" class="nav-link">Rekap Aktivitas</a>
+            <a href="lapor.html" class="nav-link nav-link--active">Lapor</a>
+        </nav>
+    </div>
+</header>
+
+<main class="page page--split">
+    <section class="split-left card card--guide">
+        <div class="pill pill--blue">Informasi Penting</div>
+        <h1 class="card-title card-title--big">🚨 Lapor</h1>
+        <p class="card-text">
+            Jika kamu mengalami kendala, mengganti nomor WhatsApp atau email yang digunakan dalam program
+            BSI Scholarship, laporkan melalui form ini agar data di sistem tetap akurat.
+        </p>
+        <ul class="list">
+            <li>Pastikan nomor WhatsApp dan email masih aktif.</li>
+            <li>Perubahan akan diverifikasi oleh admin.</li>
+            <li>Data yang tidak valid akan ditolak.</li>
+        </ul>
+        <div class="guide-placeholder">
+            <span class="guide-placeholder-label">Catatan</span>
+            <p>
+                Form ini akan mengarahkan kamu ke Google Form Lapor.
+            </p>
+        </div>
+    </section>
+
+    <section class="split-right card card--form-panel">
+        <div class="alert alert--info" id="form-banner">
+            <strong>Verifikasi identitas sebelum isi form.</strong>
+            <span> 
+                Jika identitas sudah sesuai, maka lanjut buka Google Form.
+                Jika identitas tidak sesuai, silakan verifikasi kembali.</span>
+            <span class="alert-month" id="alert-month"></span>
+        </div>
+
+        <form class="nim-form" onsubmit="return handleFormSubmit(event)">
+            <label for="nim" class="nim-label">Ketik Nama Lengkap / Nomor Induk / Kampus</label>
+
+            <p class="nim-info">
+                Nomor induk dapat dilihat di
+                <a href="https://bit.ly/awardee-portal" target="_blank" rel="noopener">Awardee Portal</a>
+            </p>
+
+            <!-- === INPUT + AUTOCOMPLETE (DISAMAKAN DENGAN FORM YANG BERHASIL) === -->
+            <div class="nim-field-wrapper">
+                <input
+                    id="nim"
+                    name="nim"
+                    type="text"
+                    class="nim-input"
+                    placeholder="Nama / No Induk / Kampus"
+                    autocomplete="off"
+                    required
+                />
+                <div id="nim-suggestions" class="nim-suggestion-box"></div>
+            </div>
+
+            <p class="nim-hint">
+                Format nomor induk: I25xxxxx. Pastikan identitas benar sebelum lanjut.
+            </p>
+
+            <button type="submit" class="btn btn-primary btn-full">
+                Verifikasi Identitas →
+            </button>
+        </form>
+
+        <div id="cek-result" class="cek-result"></div>
+
+        <div class="tips-box">
+            <h3 class="tips-title">Tips</h3>
+            <ul class="list">
+                <li>Nantinya identitasmu di Google Form akan terisi otomatis. Jadi, tidak perlu mengisi identitas kembali.</li>
+                <li>Gunakan data yang sama dengan Awardee Portal.</li>
+                <li>Pastikan email & WhatsApp aktif.</li>
+                <li>Jika terjadi error, coba refresh halaman.</li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-bottom-nav">
+    <a href="index.html" class="mb-item">
+        <svg viewBox="0 0 24 24" class="mb-icon">
+            <path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5z"/>
+        </svg>
+        <span class="mb-label">Home</span>
+    </a>
+
+    <a href="list-form.html" class="mb-item">
+        <svg viewBox="0 0 24 24" class="mb-icon">
+            <path d="M4 4h16v2H4V4zm0 5h16v2H4V9zm0 5h10v2H4v-2z"/>
+        </svg>
+        <span class="mb-label">List Form</span>
+    </a>
+
+    <a href="rekap.html" class="mb-item">
+        <svg viewBox="0 0 24 24" class="mb-icon">
+            <path d="M3 13h4v8H3v-8zm7-6h4v14h-4V7zm7-4h4v18h-4V3z"/>
+        </svg>
+        <span class="mb-label">Rekap</span>
+    </a>
+
+    <a href="lapor.html" class="mb-item active">
+        <svg viewBox="0 0 24 24" class="mb-icon">
+            <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 5v3h16v-3c0-3-4-5-8-5z"/>
+        </svg>
+        <span class="mb-label">Lapor</span>
+    </a>
+</nav>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <span>&copy;BSI Scholarship Inspirasi Batch 5</span>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "pembinaan": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSfCz1ROBQshmR1-byRf3utKFdGwQoYKJf48fVvJDaBxF7nDqg/viewform",
+    "prefill": {
+      "nim": "entry.400969128",
+      "nama": "entry.1842228073",
+      "kampus": "entry.1957380867",
+      "kelompok": "entry.1086022607"
+    }
+  },
+  "tugas-pengganti": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSdaIX0Jx4gvYkoaW67xiGcDbGBe8B9gEzduATh71i0qVyVx0g/viewform",
+    "prefill": {
+      "nim": "entry.767037759",
+      "nama": "entry.1788594766",
+      "kampus": "entry.387260116",
+      "kelompok": "entry.1425476042"
+    }
+  },
+  "mentoring": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLScnLepxijV_E6tOFzRQ97LZP533issRCD_OidKZYNY66QtEog/viewform",
+    "prefill": {
+      "nim": "entry.845015598",
+      "nama": "entry.884769710",
+      "kampus": "entry.898573090",
+      "kelompok": "entry.2031941423"
+    }
+  },
+    "prepost": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSeQ5Ld21nLtyyQ26HHSyP0chNSsSHyD6HUkcygVj4yXFW9aLg/viewform",
+    "prefill": {
+      "nim": "entry.893872556",
+      "nama": "entry.1145598644",
+      "kampus": "entry.906571376",
+      "kelompok": "entry.2019374184"
+    }
+  },
+  "midline": {
+    "form_url": "https://docs.google.com/forms/d/e/FORM_ID_MIDLINE/viewform",
+    "prefill": {
+      "nim": "entry.123456",
+      "nama": "entry.234567",
+      "kampus": "entry.345678",
+      "email": "entry.456789"
+    }
+  },
+  "lapor": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSdZfhjQEfI6W3sn7vAPVufUhHcEMWd_7BD0nWa5Y6sJ06xrxQ/viewform",
+    "prefill": {
+      "nim": "entry.156306066",
+      "nama": "entry.1179886440",
+      "kampus": "entry.784128839",
+      "kelompok": "entry.1761351346"
+    }
+  }
+}
