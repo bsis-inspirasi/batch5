@@ -206,6 +206,17 @@ a {
     transform: none;
     box-shadow: none;
 }
+.btn-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    box-shadow: none;
+}
+
+.btn-success:hover {
+    transform: none;
+    box-shadow: none;
+}
+
 
 .btn-ghost {
     border: 1px solid rgba(148, 163, 184, 0.6);
