@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kendala | BSI Scholarship Inspirasi — Batch 5</title>
+    <title>Lapor | BSI Scholarship Inspirasi — Batch 5</title>
     <link rel="icon" href="assets/logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="assets/logo.png" />
     <link rel="stylesheet" href="assets/style.css" />
@@ -36,18 +36,21 @@
         <div class="pill pill--blue">Informasi Penting</div>
         <h1 class="card-title card-title--big">🚨Form Lapor</h1>
         <p class="card-text">
-            Jika kamu mengalami kendala, mengganti nomor WhatsApp atau email yang digunakan dalam program
-            BSI Scholarship, laporkan melalui form ini agar data di sistem tetap akurat.
         </p>
         <ul class="list">
-            <li>Pastikan nomor WhatsApp dan email masih aktif.</li>
-            <li>Perubahan akan diverifikasi oleh admin.</li>
-            <li>Data yang tidak valid akan ditolak.</li>
+            <li>Ketik nama lengkap kamu di kolom yang tersedia.</li>
+            <li>Klik Verifikasi Identitas dan pastikan data sudah benar.</li>
+            <li>Klik Buka Google Form & Lanjutkan.</li>
+            <li>Isi Google Form, lalu klik Kirim / Submit.</li>
+            <li>Simpan bukti submit email Google Form untuk arsip pribadi.</li>
         </ul>
         <div class="guide-placeholder">
-            <span class="guide-placeholder-label">Catatan</span>
+            <span class="guide-placeholder-label">Tenang,jangan panik ya!</span>
             <p>
-                Form ini akan mengarahkan kamu ke Google Form Lapor.
+            Jika kamu memliki kendala terkait kehadiran, pengisian tes, kesalahan data diri, 
+            mengganti nomor WhatsApp atau email yang digunakan dalam program BSI Scholarship,
+            atau kendala yang kamu hadapi selama mengikuti program pembinaan. 
+            Silakan lapor agar data di sistem tetap akurat.
             </p>
         </div>
     </section>
@@ -61,20 +64,17 @@
                 Form Lapor BSI Scholarship Inspirasi Batch 5.
             </p>
         </div>
-        <div class="alert alert--info" id="form-banner">
-            <strong>Verifikasi identitas sebelum isi form.</strong>
-            <span> 
-                Jika identitas sudah sesuai, maka lanjut buka Google Form.
-                Jika identitas tidak sesuai, silakan verifikasi kembali.</span>
-            <span class="alert-month" id="alert-month"></span>
+        <div class="alert alert--warning" id="form-banner">
+            <strong>Perhatian.</strong>
+            <span>Cukup ketik nama lengkapmu, lalu verifikasi identitas.
+Jika identitas sudah sesuai dengan dirimu, lanjutkan Buka Google Form.</span>
         </div>
 
         <form class="nim-form" onsubmit="return handleFormSubmit(event)">
-            <label for="nim" class="nim-label">Ketik Nama Lengkap / Nomor Induk / Kampus</label>
+            <label for="nim" class="nim-label">Ketik Nama Lengkap</label>
 
             <p class="nim-info">
-                Nomor induk dapat dilihat di
-                <a href="https://bit.ly/awardee-portal" target="_blank" rel="noopener">Awardee Portal</a>
+                 Nomor induk akan muncul otomatis setelah kamu mengetik nama.
             </p>
 
             <!-- === INPUT + AUTOCOMPLETE (DISAMAKAN DENGAN FORM YANG BERHASIL) === -->
@@ -84,7 +84,7 @@
                     name="nim"
                     type="text"
                     class="nim-input"
-                    placeholder="Nama / No Induk / Kampus"
+                    placeholder="Contoh: Budi Santoso"
                     autocomplete="off"
                     required
                 />
@@ -92,10 +92,10 @@
             </div>
 
             <p class="nim-hint">
-                Format nomor induk: I25xxxxx. Pastikan identitas benar sebelum lanjut.
+                Pilih nama kamu dari daftar yang muncul. Lalu klik "Verifikasi Identitas"
             </p>
 
-            <button type="submit" class="btn btn-primary btn-full">
+            <button type="submit" class="btn btn-success btn-full">
                 Verifikasi Identitas →
             </button>
         </form>
@@ -103,11 +103,12 @@
         <div id="cek-result" class="cek-result"></div>
 
         <div class="tips-box">
-            <h3 class="tips-title">Tips</h3>
+            <h3 class="tips-title">Tips Penting💡</h3>
             <ul class="list">
-                <li>Nantinya identitasmu di Google Form akan terisi otomatis. Jadi, tidak perlu mengisi identitas kembali.</li>
-                <li>Gunakan data yang sama dengan Awardee Portal.</li>
-                <li>Pastikan email & WhatsApp aktif.</li>
+                <li>Kamu akan diarahkan ke Google Form untuk mengisi Form Lapor.</li>
+                <li>Di Google Form, identitas akan terisi otomatis. Tidak perlu mengisi ulang.</li>
+                <li>Jika muncul pesan “Continue current draft?”, klik tombol "Continue" lalu lanjutkan mengisi form.</li>
+                <li>Gunakan Email aktif (untuk konfirmasi dan arsip pribadi).</li>
                 <li>Jika terjadi error, coba refresh halaman.</li>
             </ul>
         </div>
