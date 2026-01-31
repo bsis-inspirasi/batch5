@@ -40,8 +40,7 @@
             yang kamu kirimkan tercatat dengan benar.
         </p>
         <ul class="list">
-            <li>Tanggal dan waktu terlihat jika relevan.</li>
-            <li>Isi form maksimal 3 hari setelah jadwal pembinaan (jika berlaku).</li>
+            <li>Isi form maksimal 3 hari setelah jadwal pembinaan atau mentoring.</li>
             <li>Simpan bukti submit email Google Form untuk arsip pribadi.</li>
         </ul>
         <div class="guide-placeholder">
@@ -63,19 +62,15 @@
         </div>
         <div class="alert alert--warning" id="form-banner">
             <strong>Perhatian.</strong>
-            <span>
-                Silakan verifikasi identitas. 
-                Jika identitas sudah sesuai, maka lanjut buka Google Form.
-                Jika identitas tidak sesuai, silakan verifikasi kembali.
+            <span>Cukup ketik nama lengkapmu, lalu verifikasi identitas.
+Jika identitas sudah sesuai dengan dirimu, lanjutkan Buka Google Form.
             </span>
-            <span class="alert-month" id="alert-month"></span>
         </div>
 
         <form class="nim-form" onsubmit="return handleFormSubmit(event)">
-            <label for="nim" class="nim-label">Ketik Nama Lengkap / Nomor Induk / Kampus</label>
+            <label for="nim" class="nim-label">Ketik Nama Lengkap</label>
             <p class="nim-info">
-                Nomor induk dapat dilihat di 
-                <a href="https://bit.ly/awardee-portal" target="_blank" rel="noopener">Awardee Portal</a>
+               Nomor induk akan muncul otomatis setelah kamu mengetik nama.
             </p>
 
             <!-- === INPUT + AUTOCOMPLETE === -->
@@ -85,7 +80,7 @@
                     name="nim"
                     type="text"
                     class="nim-input"
-                    placeholder="Nama / No Induk / Kampus"
+                    placeholder="Contoh: Budi Santoso"
                     autocomplete="off"
                     required
                 />
@@ -93,10 +88,10 @@
             </div>
 
             <p class="nim-hint">
-                Format nomor induk: I25xxxxx. Pastikan identitas benar sebelum lanjut.
+                Pilih nama kamu dari daftar yang muncul. Lalu klik "Verifikasi Identitas"
             </p>
 
-            <button type="submit" class="btn btn-primary btn-full">
+            <button type="submit" class="btn btn-success btn-full">
                 Verifikasi Identitas→
             </button>
         </form>
@@ -104,10 +99,15 @@
         <div id="cek-result" class="cek-result"></div>
 
         <div class="tips-box">
-            <h3 class="tips-title">Tips Penting</h3>
+            <h3 class="tips-title">Tips Penting💡</h3>
             <ul class="list">
-            <li>Nantinya identitasmu di Google Form akan terisi otomatis. Jadi, tidak perlu mengisi identitas kembali.</li>
-            <li>Jika terjadi error, coba refresh halaman.</li>
+                <li>Kamu akan diarahkan ke Google Form untuk mengirimkan tugas pengganti.</li>
+                <li>Di Google Form, identitas akan terisi otomatis. Tidak perlu mengisi ulang.</li>
+                <li>Jika muncul pesan “Continue current draft?”, klik tombol "Continue" lalu lanjutkan mengisi form.</li>
+                <li>Gunakan Email aktif (untuk konfirmasi dan arsip pribadi).</li>
+                <li>Jika terjadi error, coba refresh halaman.</li>
+                <li>Panduan Tugas Pengganti dapat dilihat di Awardee Portal
+                <a href="https://sites.google.com/view/awardee-portal/tata-tertib" target="_blank" rel="noopener">(klik disini)</a></li>
             </ul>
         </div>
     </section>
