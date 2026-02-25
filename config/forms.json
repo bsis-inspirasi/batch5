@@ -51,5 +51,13 @@
       "kampus": "entry.784128839",
       "kelompok": "entry.1761351346"
     }
+  },
+    "tp-alquran": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSeyDdsZFVzyrxCD81lkU0cvucS13Jcs3KjcJrbNMVNeR8jxmQ/viewform",
+    "prefill": {
+      "nim": "entry.82606472",
+      "nama": "entry.2089215953",
+      "kampus": "entry.1125150239"
+    }
   }
 }
