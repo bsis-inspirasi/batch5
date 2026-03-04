@@ -27,7 +27,7 @@
     }
   },
     "prepost": {
-    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLScE8qh7zktQhUD0efphV52endOKPOod-rPBDGUQmylBxViafA/viewform",
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSdZJlu6QeyF9oVqvmu3-o3ppwsoAjEk3y-7eCv1yjMOLkq0nQ/viewform",
     "prefill": {
       "nim": "entry.893872556",
       "nama": "entry.1145598644",
@@ -44,11 +44,11 @@
     }
   },
   "lapor": {
-    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSdZfhjQEfI6W3sn7vAPVufUhHcEMWd_7BD0nWa5Y6sJ06xrxQ/viewform",
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSeZHGO_VZ6Y8PzGK0e7PIfEFMxPc9WvvjNBjkszBCa6wCksDw/viewform",
     "prefill": {
       "nim": "entry.156306066",
       "nama": "entry.1179886440",
-      "kampus": "entry.784128839",
+      "kampus": "entry.2045465240",
       "kelompok": "entry.1761351346"
     }
   },
@@ -57,9 +57,7 @@
     "prefill": {
       "nim": "entry.82606472",
       "nama": "entry.2089215953",
-      "kampus": "entry.294023729"
+      "kampus": "entry.1125150239"
     }
   }
 }
-
-
