@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rekap | Inspirasi BSI Scholarship — Batch 5</title>
-    <link rel="icon" href="assets/logo.png" type="image/png" />
-    <link rel="apple-touch-icon" href="assets/logo.png" />
     <link rel="stylesheet" href="assets/style.css" />
 
     <!-- ===== TAMBAHAN STYLE (TIDAK MENGHAPUS STYLE ANDA) ===== -->
@@ -266,7 +264,7 @@
         <a href="index.html" class="brand">
             <img src="assets/logo.png" alt="BSI Scholarship Logo" class="brand-logo">
             <div class="brand-text">
-                <div class="brand-title">BSI Scholarship Inspirasi</div>
+                <div class="brand-title">Inspirasi BSI Scholarship</div>
                 <div class="brand-batch">Batch 5</div>
             </div>
         </a>
@@ -282,7 +280,110 @@
   </div>
 </header>
 
-<main class="page">
+<!-- LOGIN PANEL -->
+<section id="loginSection" class="login-wrapper">
+  <div class="login-card">
+
+    <div class="login-head">
+      <h2>Login Awardee</h2>
+      <p>Masukkan Nomor Induk untuk melihat rekap aktivitas.</p>
+    </div>
+
+    <form class="login-form" onsubmit="return handleLogin(event)">
+
+      <label>Nomor Induk</label>
+        <div class="nim-field-wrapper">
+
+        <input
+        id="nim"
+        name="nim"
+        type="text"
+        class="nim-input"
+        placeholder="Ketik No Induk"
+        autocomplete="off"
+        required
+        />
+
+        <div id="nim-suggestions" class="nim-suggestion-box"></div>
+
+        </div>
+
+      <label>Password</label>
+      <input id="loginPassword" type="password" class="nim-input" placeholder="Masukkan Password" required>
+
+      <button class="btn btn-primary btn-full">Masuk →</button>
+
+      <div id="loginError" class="login-error"></div>
+
+    </form>
+  </div>
+</section>
+
+<style>
+
+.login-wrapper{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:70vh;
+padding:20px;
+}
+
+.login-card{
+width:100%;
+max-width:420px;
+background:white;
+padding:32px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.login-head h2{
+margin:0 0 6px 0;
+font-size:24px;
+}
+
+.login-head p{
+margin:0 0 20px 0;
+font-size:14px;
+opacity:.7;
+}
+
+.login-form label{
+font-size:13px;
+font-weight:600;
+display:block;
+margin-bottom:6px;
+}
+
+.login-form input{
+width:100%;
+height:44px;
+border-radius:12px;
+border:1px solid #d7deea;
+padding:0 12px;
+margin-bottom:14px;
+}
+
+.login-error{
+color:#e11d48;
+font-size:13px;
+margin-top:10px;
+}
+
+
+
+@media(max-width:768px){
+.login-card{
+padding:24px;
+}
+}
+
+
+</style>
+
+
+<main class="page" id="rekapContent" style="display:none;">
 
   <!-- HERO -->
   <section class="hero hero--compact">
@@ -298,6 +399,7 @@
     <div class="kpi-box kpi-orange"><span>Assessment</span><strong id="kpiAssessment">0%</strong></div>
     <div class="kpi-box kpi-indigo"><span>Mentoring</span><strong id="kpiMentoring">0%</strong></div>
     <div class="kpi-box kpi-purple"><span>Pembinaan</span><strong id="kpiPembinaan">0%</strong></div>
+    <div class="kpi-box kpi-purple"><span>Al Quran</span><strong id="kpiAlquran">0%</strong></div>
   </section>
 
   <!-- FILTER -->
@@ -322,7 +424,7 @@
         </button>
         <div class="periode-panel" id="periodePanel">
           <div class="periode-panel-head">
-            <div class="periode-panel-title">Pilih Periode</div>
+            <div class="periode-panel-title">Periode</div>
             <div class="periode-panel-actions">
               <button type="button" class="periode-mini-btn" id="periodeSelectAll">All</button>
               <button type="button" class="periode-mini-btn" id="periodeClear">Clear</button>
@@ -354,7 +456,7 @@
             <th>Assessment</th>
             <th>Mentoring</th>
             <th>Pembinaan</th>
-           <!-- <th>Report</th> -->
+            <th>Al Quran</th>
           </tr>
         </thead>
         <tbody id="rekapBody"></tbody>
@@ -373,15 +475,116 @@
 </main>
 
 <footer class="footer">
-    <div class="footer-inner">
-        <span>&copy;BSI Scholarship Inspirasi Batch 5</span>
-    </div>
+    <div class="footer-inner">&copy; BSI Scholarship Inspirasi Batch 5</div>
 </footer>
 
 <!-- GLOBAL AUTOCOMPLETE -->
 <div id="globalSuggest" class="suggestion-global"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* LOGIN HANDLER */
+async function handleLogin(e){
+e.preventDefault();
+
+const nim = document.getElementById("nim").value.trim();
+const password = document.getElementById("loginPassword").value.trim();
+const errorBox = document.getElementById("loginError");
+
+errorBox.textContent="";
+
+const {data,error}=await supabaseClient
+.from("mahasiswa_bsi")
+.select("no_induk,password")
+.ilike("no_induk",nim)
+.limit(1)
+.maybeSingle();
+
+if(error||!data){
+errorBox.textContent="Data tidak ditemukan";
+return false;
+}
+
+if(data.password!==password){
+errorBox.textContent="Password salah";
+return false;
+}
+
+currentUser=data.no_induk;
+
+document.getElementById("loginSection").style.display="none";
+document.getElementById("rekapContent").style.display="block";
+
+init();
+
+return false;
+}
+</script>
+<script>
+
+
+/* DROPDOWN SUGGESTION */
+document.addEventListener("DOMContentLoaded", () => {
+
+const input = document.getElementById("nim");
+const box = document.getElementById("nim-suggestions");
+
+if(!input) return;
+
+input.addEventListener("input", async () => {
+
+  const q = input.value.trim();
+
+  if(q.length < 2){
+    box.innerHTML = "";
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("mahasiswa_bsi")
+    .select("no_induk,nama,kampus")
+    .ilike("no_induk", `%${q}%`)
+    .limit(5);
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  box.innerHTML = "";
+
+  if(!data || data.length === 0) return;
+
+  data.forEach(row => {
+
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+      <strong>${row.no_induk}</strong> • ${row.nama} • ${row.kampus}
+    `;
+
+    div.onclick = () => {
+      input.value = row.no_induk;
+      box.innerHTML = "";
+    };
+
+    box.appendChild(div);
+
+  });
+
+});
+
+/* klik luar menutup dropdown */
+document.addEventListener("click", (e) => {
+  if(!box.contains(e.target) && e.target !== input){
+    box.innerHTML = "";
+  }
+});
+
+});
+
+</script>
 
 <script>
 /* ================= NAV ================= */
@@ -410,6 +613,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const PAGE_SIZE = 20;
+let currentUser = null;
 let rawData = [];
 let filteredData = [];
 let currentPage = 1;
@@ -540,6 +744,7 @@ function renderKPI(rows) {
   kpiAssessment.textContent = calcPercent("assessment");
   kpiMentoring.textContent = calcPercent("mentoring");
   kpiPembinaan.textContent = calcPercent("pembinaan");
+  kpiAlquran.textContent = calcPercent("kelas_al_quran");
 
 }
 
@@ -667,8 +872,7 @@ function renderTable() {
         ${icon(r.assessment)}
         ${icon(r.mentoring)}
         ${icon(r.pembinaan)}
-        
-      </tr>
+        ${icon(r.kelas_al_quran)}
     `;
   });
 
@@ -708,7 +912,12 @@ function rebuildSelectedPeriodeFromChecks() {
 
 /* ================= FILTER ================= */
 function applyFilter() {
-  filteredData = rawData
+  filteredData = rawData.filter(r => {
+  if(currentUser){
+    return r.no_induk === currentUser;
+  }
+  return true;
+})
     .filter(r =>
       (!fNoInduk.value || (r.no_induk || "").includes(fNoInduk.value)) &&
       (!fNama.value || (r.nama || "").toLowerCase().includes(fNama.value.toLowerCase())) &&
@@ -769,7 +978,7 @@ async function init() {
   while (true) {
     const { data, error } = await supabaseClient
       .from("rekap_bsi")
-      .select("no_induk,nama,kampus,kelompok,tanggal,pre_test,post_test,assessment,mentoring,pembinaan")
+      .select("no_induk,nama,kampus,kelompok,tanggal,pre_test,post_test,assessment,mentoring,pembinaan,kelas_al_quran")
       .range(from, from + 999);
 
     if (error || !data || !data.length) break;
@@ -875,7 +1084,91 @@ document.addEventListener("click", (e) => {
 /* ===== NOTE: sebelumnya ada listener fPeriode change. sekarang hidden select, tidak dipakai user langsung. ===== */
 /* fPeriode.addEventListener("change", applyFilter); */
 
+// init after login
+
+/* LOGIN FUNCTION */
+async function handleLogin(e){
+e.preventDefault();
+
+const nim=document.getElementById("nim").value.trim();
+const password=document.getElementById("loginPassword").value.trim();
+const errorBox=document.getElementById("loginError");
+errorBox.textContent="";
+
+const {data,error}=await supabaseClient
+.from("mahasiswa_bsi")
+.select("no_induk,password")
+.ilike("no_induk",nim)
+.limit(1)
+.maybeSingle();
+
+if(error||!data){
+errorBox.textContent="Data tidak ditemukan";
+return false;
+}
+
+if(data.password!==password){
+errorBox.textContent="Password salah";
+return false;
+}
+
+currentUser=data.no_induk;
+
+document.getElementById("loginSection").style.display="none";
+document.getElementById("rekapContent").style.display="block";
+
 init();
+
+return false;
+}
+
+/* DROPDOWN SUGGESTION */
+document.addEventListener("DOMContentLoaded",()=>{
+
+const input=document.getElementById("nim");
+const box=document.getElementById("nim-suggestions");
+
+if(!input) return;
+
+input.addEventListener("input",async()=>{
+
+const q=input.value.trim();
+
+if(q.length<2){
+box.innerHTML="";
+return;
+}
+
+const {data}=await supabaseClient
+.from("mahasiswa_bsi")
+.select("no_induk,nama,kampus")
+.or(`no_induk.ilike.%${q}%,nama.ilike.%${q}%,kampus.ilike.%${q}%`)
+.limit(5);
+
+box.innerHTML="";
+
+if(!data) return;
+
+data.forEach(row=>{
+
+const div=document.createElement("div");
+div.textContent=`${row.no_induk} • ${row.nama} • ${row.kampus}`;
+div.style.padding="8px";
+div.style.cursor="pointer";
+
+div.onclick=()=>{
+input.value=row.no_induk;
+box.innerHTML="";
+};
+
+box.appendChild(div);
+
+});
+
+});
+
+});
+
 </script>
 
 <!-- MOBILE BOTTOM NAV -->
