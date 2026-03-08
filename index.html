@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Home | BSI Scholarship Inspirasi — Batch 5</title>
-<link rel="icon" href="assets/logo.png" type="image/png" />
-<link rel="apple-touch-icon" href="assets/logo.png" />
+<title>Home | Inspirasi BSI Scholarship — Batch 5</title>
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/logo.png" />
 <link rel="stylesheet" href="assets/style.css" />
 
 <!-- ✅ ADD-ON (TIDAK MENGHAPUS APA PUN): kolom fixed 100%, minibar full, dropdown suggestion, font mobile kecil -->
@@ -161,7 +161,181 @@
     .data-body td:nth-child(2){ white-space:normal; } /* mobile boleh wrap sedikit */
   }
 
-  
+  /* ==========================================================
+     ✅ ADDITION: TAB + SLIDE + FILTER + PAGINATION
+  ========================================================== */
+  .head-actions{
+    display:flex;
+    gap:6px;
+    align-items:center;
+    flex:0 0 auto;
+  }
+  .tab-btn{
+    border:none;
+    padding:6px 10px;
+    border-radius:10px;
+    font-size:12px;
+    cursor:pointer;
+    background:rgba(0,0,0,.06);
+  }
+  .tab-btn.active{
+    background:rgba(0,167,157,.16);
+    color:#006b64;
+    font-weight:700;
+  }
+
+  .card-slide{ display:none; }
+  .card-slide.active{ display:block; }
+
+  .filter-panel{
+    width:100%;
+    background:rgba(0,0,0,.03);
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:12px;
+    padding:10px;
+    display:grid;
+    gap:10px;
+    margin-bottom:10px;
+  }
+  .filter-panel.is-collapsed{
+    display:none;
+  }
+  .filter-openbar{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:8px;
+  }
+  .btn-open-filter{
+    padding:8px 10px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:800;
+    background:rgba(0,0,0,.06);
+  }
+
+  .filter-group{
+    display:grid;
+    gap:6px;
+  }
+  .filter-label{
+    font-size:12px;
+    font-weight:700;
+    opacity:.9;
+  }
+  .filter-row{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+
+  .op-toggle{
+    display:flex;
+    gap:8px;
+  }
+  .op-btn{
+    padding:8px 10px;
+    border-radius:12px;
+    border:1px solid rgba(0,0,0,.12);
+    background:#fff;
+    cursor:pointer;
+    font-weight:800;
+    font-size:12px;
+  }
+  .op-btn.active{
+    background:rgba(0,167,157,.16);
+    border-color: rgba(0,167,157,.35);
+    color:#006b64;
+  }
+
+  .filter-row input[type="number"]{
+    padding:8px 10px;
+    border-radius:10px;
+    border:1px solid rgba(0,0,0,.12);
+    font-size:12px;
+    outline:none;
+    background:#fff;
+    width:110px;
+  }
+  .filter-row input[type="range"]{
+    width:100%;
+  }
+  .month-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:6px;
+    font-size:12px;
+  }
+  .month-grid label{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 10px;
+    border-radius:12px;
+    border:1px solid rgba(0,0,0,.08);
+    background:#fff;
+    cursor:pointer;
+    user-select:none;
+  }
+  .month-grid input{ transform: translateY(1px); }
+
+  .btn-apply{
+    padding:10px 12px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:800;
+    background:rgba(0,167,157,.18);
+    color:#006b64;
+  }
+  .btn-apply:hover{ background:rgba(0,167,157,.24); }
+
+  .full-table{
+    width:100%;
+    table-layout:fixed;
+    border-collapse:collapse;
+  }
+  .full-table th,
+  .full-table td{
+    padding:8px 10px;
+    border-bottom:1px solid rgba(0,0,0,.08);
+    font-size:12px;
+    vertical-align:middle;
+  }
+
+  .pager{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:10px;
+    flex-wrap:wrap;
+  }
+  .pager-left, .pager-right{
+    display:flex;
+    gap:6px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .pager-btn{
+    border:none;
+    padding:8px 10px;
+    border-radius:12px;
+    background:rgba(0,0,0,.06);
+    cursor:pointer;
+    font-weight:800;
+    font-size:12px;
+  }
+  .pager-btn:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+  }
+  .pager-info{
+    font-size:12px;
+    opacity:.85;
+    font-weight:700;
+  }
 </style>
 
 </head>
@@ -173,7 +347,7 @@
     <a href="index.html" class="brand">
       <img src="assets/logo.png" class="brand-logo">
       <div class="brand-text">
-        <div class="brand-title">BSI Scholarship Inspirasi</div>
+        <div class="brand-title">Inspirasi BSI Scholarship</div>
         <div class="brand-batch">Batch 5</div>
       </div>
     </a>
@@ -198,7 +372,7 @@
     </h1>
 
     <p class="hero-subtitle">
-        Yuk cari yang kamu butuhkan!
+        Yuk cari yang kamu butuhkan.
     </p>
 
     <!-- ACTION CARDS -->
@@ -213,7 +387,7 @@
                 <h3 class="hero-card-title">Mengisi Form</h3>
             </div>
             <p class="hero-card-text">
-                Form kehadiran, tugas pengganti, pre test & post test.
+                Isi form kehadiran, tugas pengganti, pre test, post test.
             </p>
         </a>
 
@@ -257,74 +431,163 @@
 </section>
 
 <section class="frame-2col">
-  <div class="data-card">
+
+  <!-- =================== PESERTA TOP =================== -->
+  <div class="data-card" data-entity="peserta" data-which="top" data-card-id="peserta-top">
     <div class="data-head good">
       <div class="head-title">🏆 Top 10 Peserta Paling Aktif</div>
+
+      <div class="head-actions">
+        <button class="tab-btn active" type="button" data-tab="summary">Top 10</button>
+        <button class="tab-btn" type="button" data-tab="filter">Filter</button>
+      </div>
+
       <div class="head-search">
         <input id="searchPesertaTop" type="search" placeholder="Cari peserta..." autocomplete="off"
                oninput="showSuggestions('peserta','top',this)" onfocus="showSuggestions('peserta','top',this)">
         <div class="search-dropdown" hidden></div>
       </div>
     </div>
-    <div class="data-body"><table id="tblPesertaTop"></table></div>
-  </div>
-  <div class="data-card">
-    <div class="data-head bad">
-      <div class="head-title">📕 Top 10 Peserta Kurang Aktif</div>
-      <div class="head-search">
-        <input id="searchPesertaLow" type="search" placeholder="Cari peserta..." autocomplete="off"
-               oninput="showSuggestions('peserta','low',this)" onfocus="showSuggestions('peserta','low',this)">
-        <div class="search-dropdown" hidden></div>
+
+    <div class="data-body">
+      <div class="card-slide active" data-slide="summary">
+        <table id="tblPesertaTop"></table>
+      </div>
+
+      <div class="card-slide" data-slide="filter">
+        <div class="filter-panel">
+          <div class="filter-group">
+            <div class="filter-label">Filter Persentase</div>
+            <div class="filter-row">
+              <div class="op-toggle" role="group" aria-label="operator">
+                <button class="op-btn active" type="button" data-op=">=">Di atas (≥)</button>
+                <button class="op-btn" type="button" data-op="<=">Di bawah (≤)</button>
+              </div>
+              <input class="percent-input" type="number" min="0" max="100" value="75" aria-label="persentase"> <span>%</span>
+            </div>
+            <input class="percent-range" type="range" min="0" max="100" value="75">
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-label">Periode (Des 2025 – Nov 2026) (multi)</div>
+            <div class="month-grid" data-months></div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-label">Aktivitas (multi)</div>
+            <div class="month-grid activity-grid" data-activities>
+              <label><input type="checkbox" value="pre_test" checked> Pre Test</label>
+              <label><input type="checkbox" value="post_test" checked> Post Test</label>
+              <label><input type="checkbox" value="assessment" checked> Assessment</label>
+              <label><input type="checkbox" value="mentoring" checked> Mentoring</label>
+              <label><input type="checkbox" value="pembinaan" checked> Pembinaan</label>
+            </div>
+          </div>
+
+          <button class="btn-apply" type="button">Terapkan Filter</button>
+        </div>
+
+        <div class="filter-openbar" hidden>
+          <button class="btn-open-filter" type="button">Ubah Filter</button>
+        </div>
+
+        <table class="full-table"></table>
+
+        <div class="pager" hidden>
+          <div class="pager-left">
+            <button class="pager-btn btn-first" type="button">First</button>
+            <button class="pager-btn btn-prev" type="button">Prev</button>
+          </div>
+          <div class="pager-info">Page <span class="pg-now">1</span>/<span class="pg-total">1</span></div>
+          <div class="pager-right">
+            <button class="pager-btn btn-next" type="button">Next</button>
+            <button class="pager-btn btn-last" type="button">Last</button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="data-body"><table id="tblPesertaLow"></table></div>
   </div>
 
-  <div class="data-card">
-    <div class="data-head good">
-      <div class="head-title">🏫 Top 10 Kampus Paling Aktif</div>
-      <div class="head-search">
-        <input id="searchKampusTop" type="search" placeholder="Cari kampus..." autocomplete="off"
-               oninput="showSuggestions('kampus','top',this)" onfocus="showSuggestions('kampus','top',this)">
-        <div class="search-dropdown" hidden></div>
-      </div>
-    </div>
-    <div class="data-body"><table id="tblKampusTop"></table></div>
-  </div>
-  <div class="data-card">
-    <div class="data-head bad">
-      <div class="head-title">🏫 Kampus Kurang Aktif</div>
-      <div class="head-search">
-        <input id="searchKampusLow" type="search" placeholder="Cari kampus..." autocomplete="off"
-               oninput="showSuggestions('kampus','low',this)" onfocus="showSuggestions('kampus','low',this)">
-        <div class="search-dropdown" hidden></div>
-      </div>
-    </div>
-    <div class="data-body"><table id="tblKampusLow"></table></div>
-  </div>
-
-  <div class="data-card">
+  
+  
+  
+  <!-- =================== KELOMPOK TOP =================== -->
+  <div class="data-card" data-entity="kelompok" data-which="top" data-card-id="kelompok-top">
     <div class="data-head good">
       <div class="head-title">👥 Top 10 Kelompok Aktif</div>
+
+      <div class="head-actions">
+        <button class="tab-btn active" type="button" data-tab="summary">Top 10</button>
+        <button class="tab-btn" type="button" data-tab="filter">Filter</button>
+      </div>
+
       <div class="head-search">
         <input id="searchKelompokTop" type="search" placeholder="Cari kelompok..." autocomplete="off"
                oninput="showSuggestions('kelompok','top',this)" onfocus="showSuggestions('kelompok','top',this)">
         <div class="search-dropdown" hidden></div>
       </div>
     </div>
-    <div class="data-body"><table id="tblKelompokTop"></table></div>
-  </div>
-  <div class="data-card">
-    <div class="data-head bad">
-      <div class="head-title">👥 Kelompok Kurang Aktif</div>
-      <div class="head-search">
-        <input id="searchKelompokLow" type="search" placeholder="Cari kelompok..." autocomplete="off"
-               oninput="showSuggestions('kelompok','low',this)" onfocus="showSuggestions('kelompok','low',this)">
-        <div class="search-dropdown" hidden></div>
+
+    <div class="data-body">
+      <div class="card-slide active" data-slide="summary">
+        <table id="tblKelompokTop"></table>
+      </div>
+
+      <div class="card-slide" data-slide="filter">
+        <div class="filter-panel">
+          <div class="filter-group">
+            <div class="filter-label">Filter Persentase</div>
+            <div class="filter-row">
+              <div class="op-toggle" role="group" aria-label="operator">
+                <button class="op-btn active" type="button" data-op=">=">Di atas (≥)</button>
+                <button class="op-btn" type="button" data-op="<=">Di bawah (≤)</button>
+              </div>
+              <input class="percent-input" type="number" min="0" max="100" value="75" aria-label="persentase"> <span>%</span>
+            </div>
+            <input class="percent-range" type="range" min="0" max="100" value="75">
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-label">Periode (Des 2025 – Nov 2026) (multi)</div>
+            <div class="month-grid" data-months></div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-label">Aktivitas (multi)</div>
+            <div class="month-grid activity-grid" data-activities>
+              <label><input type="checkbox" value="pre_test" checked> Pre Test</label>
+              <label><input type="checkbox" value="post_test" checked> Post Test</label>
+              <label><input type="checkbox" value="assessment" checked> Assessment</label>
+              <label><input type="checkbox" value="mentoring" checked> Mentoring</label>
+              <label><input type="checkbox" value="pembinaan" checked> Pembinaan</label>
+            </div>
+          </div>
+
+          <button class="btn-apply" type="button">Terapkan Filter</button>
+        </div>
+
+        <div class="filter-openbar" hidden>
+          <button class="btn-open-filter" type="button">Ubah Filter</button>
+        </div>
+
+        <table class="full-table"></table>
+
+        <div class="pager" hidden>
+          <div class="pager-left">
+            <button class="pager-btn btn-first" type="button">First</button>
+            <button class="pager-btn btn-prev" type="button">Prev</button>
+          </div>
+          <div class="pager-info">Page <span class="pg-now">1</span>/<span class="pg-total">1</span></div>
+          <div class="pager-right">
+            <button class="pager-btn btn-next" type="button">Next</button>
+            <button class="pager-btn btn-last" type="button">Last</button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="data-body"><table id="tblKelompokLow"></table></div>
   </div>
+
+  
 </section>
 
 </main>
@@ -360,7 +623,7 @@
 </nav>
 
 <footer class="footer">
-  <div class="footer-inner">&copy;BSI Scholarship Inspirasi Batch 5.</div>
+  <div class="footer-inner">&copy; 2025 BSI Scholarship Hub</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -376,19 +639,30 @@ document.addEventListener("DOMContentLoaded", async () => {
       `rekap.html?type=${type}&value=${encodeURIComponent(value)}`;
   }
 
-  const PAGE = 1000;
-  let from = 0, rows = [];
+const PAGE_SIZE = 1000;
+let from = 0;
+let rows = [];
 
-  while (true) {
-    const { data } = await sb
-      .from("rekap_bsi")
-      .select("no_induk,nama,kampus,kelompok,pre_test,post_test,assessment,mentoring,pembinaan")
-      .range(from, from + PAGE - 1);
+while (true) {
 
-    if (!data || !data.length) break;
-    rows.push(...data);
-    from += PAGE;
+  const { data, error } = await sb
+    .from("rekap_bsi")
+    .select("no_induk,nama,kampus,kelompok,pre_test,post_test,assessment,mentoring,pembinaan")
+    .range(from, from + PAGE_SIZE - 1);
+
+  if (error) {
+    console.error(error);
+    break;
   }
+
+  if (!data || data.length === 0) break;
+
+  rows.push(...data);
+
+  if (data.length < PAGE_SIZE) break;
+
+  from += PAGE_SIZE;
+}
 
   // ✅ hadirin kalau OK / TP
   const isH = v => v === "✅" || v === "TP";
@@ -434,17 +708,38 @@ document.addEventListener("DOMContentLoaded", async () => {
   const safeRate = x => (x.total > 0 ? (x.hadir / x.total) : 0);
   const sortFn = (a,b)=> safeRate(b) - safeRate(a) || b.hadir - a.hadir;
 
-  const arrPeserta = Object.values(peserta)
-    .map(x => ({ ...x, rate: safeRate(x) }))
-    .sort(sortFn);
+  // Build activities map per entity for filter "Aktivitas (multi)"
+  function buildActivitiesMap(rows){
+    const map = {};
+    rows.forEach(r=>{
+      const acts = {
+        pre_test: r.pre_test,
+        post_test: r.post_test,
+        assessment: r.assessment,
+        mentoring: r.mentoring,
+        pembinaan: r.pembinaan
+      };
+      Object.keys(acts).forEach(k=>{
+        if(acts[k] !== null && acts[k] !== undefined && String(acts[k]).trim() !== ""){
+          map[k] = (map[k] || 0) + 1;
+        }
+      });
+    });
+    return map;
+  }
 
-  const arrKampus  = Object.values(kampus)
-    .map(x => ({ ...x, rate: safeRate(x) }))
-    .sort(sortFn);
+const activityMap = buildActivitiesMap(rows);  
+const arrPeserta = Object.values(peserta)
+  .map(x => ({ ...x, rate: safeRate(x), activities: activityMap }))
+  .sort(sortFn);
 
-  const arrKelompok= Object.values(kelompok)
-    .map(x => ({ ...x, rate: safeRate(x) }))
-    .sort(sortFn);
+const arrKampus  = Object.values(kampus)
+  .map(x => ({ ...x, rate: safeRate(x), activities: activityMap }))
+  .sort(sortFn);
+
+const arrKelompok= Object.values(kelompok)
+  .map(x => ({ ...x, rate: safeRate(x), activities: activityMap }))
+  .sort(sortFn);
 
   kpiPeserta.textContent = Object.keys(peserta).length;
 
@@ -458,11 +753,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   kpiCampus.textContent = Object.keys(kampus).length;
 
-  function render(el, arr, type, barClass){
+  function render(el, arr, type, barClass, start = 0){
     let h = "<tr><th>#</th><th>Nama</th><th>Partisipasi</th><th>Persentase</th></tr>";
-    arr.slice(0,10).forEach((a,i)=>{
+    arr.slice(start, start + 10).forEach((a,i)=>{
       const pct = Math.round((a.rate || 0) * 100);
-      const icon = i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
+      const rank = start + i + 1;
+      const icon =
+        rank===1?"🥇":
+        rank===2?"🥈":
+        rank===3?"🥉":
+        rank;
 
       h += `
       <tr class="click-row ${i<3?`top${i+1}`:""}"
@@ -514,12 +814,72 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   /* ✅ Render top/bottom tetap seperti sebelumnya */
-  render(tblPesertaTop, arrPeserta, "peserta", "good-bar");
-  render(tblPesertaLow, arrPeserta.slice().reverse(), "peserta", "bad-bar");
-  render(tblKampusTop, arrKampus, "kampus", "good-bar");
-  render(tblKampusLow, arrKampus.slice().reverse(), "kampus", "bad-bar");
-  render(tblKelompokTop, arrKelompok, "kelompok", "good-bar");
-  render(tblKelompokLow, arrKelompok.slice().reverse(), "kelompok", "bad-bar");
+    let pesertaTopPage = 0;
+    let kelompokTopPage = 0;
+
+    function renderPesertaTop(){
+      render(
+        tblPesertaTop,
+        arrPeserta,
+        "peserta",
+        "good-bar",
+        pesertaTopPage * 10
+      );
+    }
+
+    function renderKelompokTop(){
+      render(
+        tblKelompokTop,
+        arrKelompok,
+        "kelompok",
+        "good-bar",
+        kelompokTopPage * 10
+      );
+    }
+
+    renderPesertaTop();
+    renderKelompokTop();
+
+
+    // scroll peserta
+    tblPesertaTop.addEventListener("wheel",(e)=>{
+      if(e.deltaY > 0){
+        pesertaTopPage++;
+      }else{
+        pesertaTopPage = Math.max(0, pesertaTopPage - 1);
+      }
+      renderPesertaTop();
+    });
+
+    // scroll kelompok
+    tblKelompokTop.addEventListener("wheel",(e)=>{
+      if(e.deltaY > 0){
+        kelompokTopPage++;
+      }else{
+        kelompokTopPage = Math.max(0, kelompokTopPage - 1);
+      }
+      renderKelompokTop();
+    });
+
+    document.addEventListener("keydown",(e)=>{
+
+      if(e.key === "ArrowRight"){
+        pesertaTopPage++;
+        kelompokTopPage++;
+
+        renderPesertaTop();
+        renderKelompokTop();
+      }
+
+      if(e.key === "ArrowLeft"){
+        pesertaTopPage = Math.max(0, pesertaTopPage - 1);
+        kelompokTopPage = Math.max(0, kelompokTopPage - 1);
+
+        renderPesertaTop();
+        renderKelompokTop();
+      }
+
+    });
 
   /* ===== Dropdown Suggestion (multi hasil) ===== */
   const limitSuggest = 15;
@@ -599,10 +959,301 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
+  /* ==========================================================
+     ✅ ADDITION: FILTER SLIDE + AUTO CLOSE + PAGINATION (10)
+  ========================================================== */
+
+  const FILTER_PAGE_SIZE = 10;
+
+  const filterState = {}; // per card-id: { op, pct, months[], page, items[] }
+
+  function monthLabel(d){
+    return d.toLocaleString("id-ID", { month: "short", year: "numeric" });
+  }
+
+  function buildMonthOptions(container){
+    container.innerHTML = "";
+    const start = new Date(2025, 11, 1); // Dec 2025 (0-based)
+    for(let i=0;i<12;i++){
+      const d = new Date(start.getFullYear(), start.getMonth()+i, 1);
+      const ym = d.toISOString().slice(0,7); // YYYY-MM
+      const label = monthLabel(d);
+      const lab = document.createElement("label");
+      lab.innerHTML = `<input type="checkbox" value="${ym}"> ${label}`;
+      container.appendChild(lab);
+    }
+  }
+  document.querySelectorAll("[data-months]").forEach(buildMonthOptions);
+
+  // Sync slider <-> number + bind operator buttons + apply/pager
+  document.querySelectorAll(".data-card").forEach(card=>{
+    const cardId = card.getAttribute("data-card-id") || (card.dataset.entity + "-" + card.dataset.which);
+
+    filterState[cardId] = { op: ">=", pct: 75, months: [], page: 1, items: [] };
+
+    const range = card.querySelector(".percent-range");
+    const input = card.querySelector(".percent-input");
+    const panel = card.querySelector(".filter-panel");
+    const openbar = card.querySelector(".filter-openbar");
+    const btnOpen = card.querySelector(".btn-open-filter");
+    const btnApply = card.querySelector(".btn-apply");
+    const opBtns = card.querySelectorAll(".op-btn");
+    const monthChecks = () => [...card.querySelectorAll("[data-months] input:checked")].map(x=>x.value);
+
+        const actChecks = () => [...card.querySelectorAll("[data-activities] input:checked")].map(x=>x.value);
+
+    // Default op based on active button
+    const activeOpBtn = card.querySelector(".op-btn.active");
+    if(activeOpBtn){
+      filterState[cardId].op = activeOpBtn.getAttribute("data-op") || ">=";
+    }
+
+    if(range && input){
+      range.addEventListener("input", ()=>{ input.value = range.value; });
+      input.addEventListener("input", ()=>{
+        const v = Math.max(0, Math.min(100, Number(input.value || 0)));
+        input.value = String(v);
+        range.value = String(v);
+      });
+    }
+
+    // Operator toggle
+    opBtns.forEach(b=>{
+      b.addEventListener("click", ()=>{
+        opBtns.forEach(x=>x.classList.remove("active"));
+        b.classList.add("active");
+        filterState[cardId].op = b.getAttribute("data-op") || ">=";
+      });
+    });
+
+    // Apply
+    if(btnApply){
+      btnApply.addEventListener("click", ()=>{
+        const entity = card.dataset.entity;
+        const pct = Math.max(0, Math.min(100, Number(input ? input.value : 0)));
+        const op = filterState[cardId].op;
+        const months = monthChecks();
+
+        const base = (window.__RANK_STORE__ && window.__RANK_STORE__[entity]) ? window.__RANK_STORE__[entity].slice() : [];
+
+        let filtered = base.filter(x=>{
+          const p = Math.round((x.rate || 0) * 100);
+          return (op === ">=") ? (p >= pct) : (p <= pct);
+        });
+
+        // Period filter if property exists; if not present, let through
+        if(months.length){
+          filtered = filtered.filter(x=>{
+            const per = x.periode || x.period || x.month || "";
+            if(!per) return true;
+            return months.includes(String(per).slice(0,7));
+          });
+        }
+
+        // Aktivitas filter (multi): jika data punya breakdown aktivitas, gunakan; jika tidak, biarkan lolos
+        const acts = actChecks();
+        if(acts && acts.length){
+          filtered = filtered.filter(x=>{
+            // x.activities expected as map {pre_test:1, post_test:0,...} OR counts by activity
+            if(!x.activities) return true;
+            return acts.some(a => (x.activities[a] || 0) > 0);
+          });
+        }
+
+        filterState[cardId].pct = pct;
+        filterState[cardId].months = months;
+        filterState[cardId].items = filtered;
+        filterState[cardId].page = 1;
+
+        renderFilterPage(card);
+
+        // Auto close panel after apply
+        if(panel){
+          panel.classList.add("is-collapsed");
+        }
+        if(openbar){
+          openbar.hidden = false;
+        }
+      });
+    }
+
+    // Open filter panel
+    if(btnOpen){
+      btnOpen.addEventListener("click", ()=>{
+        if(panel) panel.classList.remove("is-collapsed");
+        if(openbar) openbar.hidden = true;
+      });
+    }
+
+    // Close when click outside (only for this card filter slide)
+    document.addEventListener("click", (e)=>{
+      const filterSlide = card.querySelector('.card-slide[data-slide="filter"]');
+      if(!filterSlide) return;
+      if(!filterSlide.classList.contains("active")) return;
+
+      // If panel already collapsed, nothing
+      if(panel && panel.classList.contains("is-collapsed")) return;
+
+      // Click inside panel or on open button should not close
+      if(panel && panel.contains(e.target)) return;
+      if(btnOpen && btnOpen.contains(e.target)) return;
+      if(btnApply && btnApply.contains(e.target)) return;
+
+      // Click on any of the tab buttons inside header should not immediately close
+      const tb = e.target.closest(".tab-btn");
+      if(tb && card.contains(tb)) return;
+
+      // Outside click => close
+      if(panel){
+        panel.classList.add("is-collapsed");
+      }
+      if(openbar){
+        openbar.hidden = false;
+      }
+    });
+
+    // Pager buttons
+    const pager = card.querySelector(".pager");
+    const btnFirst = card.querySelector(".btn-first");
+    const btnPrev  = card.querySelector(".btn-prev");
+    const btnNext  = card.querySelector(".btn-next");
+    const btnLast  = card.querySelector(".btn-last");
+
+    // Scroll untuk pindah halaman
+    const filterTable = card.querySelector(".full-table");
+
+    if (filterTable) {
+      filterTable.addEventListener("wheel", (e) => {
+        if (e.deltaY > 0) {
+          gotoPage(filterState[cardId].page + 1); // scroll bawah → next
+        } else {
+          gotoPage(filterState[cardId].page - 1); // scroll atas → prev
+        }
+      });
+    }
+
+    // Keyboard panah kiri kanan
+    document.addEventListener("keydown", (e) => {
+      const filterSlide = card.querySelector('.card-slide[data-slide="filter"]');
+      if (!filterSlide || !filterSlide.classList.contains("active")) return;
+
+      if (e.key === "ArrowRight") {
+        gotoPage(filterState[cardId].page + 1);
+      }
+
+      if (e.key === "ArrowLeft") {
+        gotoPage(filterState[cardId].page - 1);
+      }
+    });
+
+    function gotoPage(p){
+      const st = filterState[cardId];
+      const totalPages = Math.max(1, Math.ceil((st.items || []).length / FILTER_PAGE_SIZE));
+      st.page = Math.max(1, Math.min(totalPages, p));
+      renderFilterPage(card);
+    }
+
+    if(btnFirst) btnFirst.addEventListener("click", ()=>gotoPage(1));
+    if(btnPrev)  btnPrev.addEventListener("click", ()=>gotoPage(filterState[cardId].page - 1));
+    if(btnNext)  btnNext.addEventListener("click", ()=>gotoPage(filterState[cardId].page + 1));
+    if(btnLast)  btnLast.addEventListener("click", ()=>{
+      const st = filterState[cardId];
+      const totalPages = Math.max(1, Math.ceil((st.items || []).length / FILTER_PAGE_SIZE));
+      gotoPage(totalPages);
+    });
+
+    function renderFilterPage(cardEl){
+      const cid = cardEl.getAttribute("data-card-id") || (cardEl.dataset.entity + "-" + cardEl.dataset.which);
+      const st = filterState[cid];
+      const entity = cardEl.dataset.entity;
+      const tbl = cardEl.querySelector(".full-table");
+      const pagerEl = cardEl.querySelector(".pager");
+      const nowEl = cardEl.querySelector(".pg-now");
+      const totEl = cardEl.querySelector(".pg-total");
+
+      if(!tbl) return;
+
+      const items = st.items || [];
+      const totalPages = Math.max(1, Math.ceil(items.length / FILTER_PAGE_SIZE));
+      const page = Math.max(1, Math.min(totalPages, st.page || 1));
+      st.page = page;
+
+      const start = (page - 1) * FILTER_PAGE_SIZE;
+      const slice = items.slice(start, start + FILTER_PAGE_SIZE);
+
+      if(!slice.length){
+        tbl.innerHTML = `<tr><td style="padding:10px;opacity:.7;">Tidak ada data sesuai filter.</td></tr>`;
+      } else {
+        let h = `<tr><th>#</th><th>Nama</th><th>Partisipasi</th><th>Persentase</th></tr>`;
+        slice.forEach((a, idx)=>{
+          const pct = Math.round((a.rate || 0) * 100);
+          const rowNo = start + idx + 1;
+          h += `
+            <tr class="click-row" onclick="goRekap('${entity}','${a.nama}')">
+              <td class="center">${rowNo}</td>
+              <td><strong>${a.nama}</strong></td>
+              <td class="center">${a.hadir} dari ${a.total}</td>
+              <td>
+                <div class="progress-wrap">
+                  <div class="progress">
+                    <div class="${(pct>=75)?'good-bar':'bad-bar'}" style="width:${pct}%"></div>
+                  </div>
+                  <span class="percent">${pct}%</span>
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+        tbl.innerHTML = h;
+      }
+
+      if(pagerEl){
+        pagerEl.hidden = (items.length <= FILTER_PAGE_SIZE);
+      }
+      if(nowEl) nowEl.textContent = String(page);
+      if(totEl) totEl.textContent = String(totalPages);
+
+      // Enable/disable
+      if(btnFirst) btnFirst.disabled = (page <= 1);
+      if(btnPrev)  btnPrev.disabled  = (page <= 1);
+      if(btnNext)  btnNext.disabled  = (page >= totalPages);
+      if(btnLast)  btnLast.disabled  = (page >= totalPages);
+    }
+
+    // Expose method inside closure for apply handler
+    card.__renderFilterPage__ = ()=>renderFilterPage(card);
+    window.__renderFilterPage__ = window.__renderFilterPage__ || {};
+    window.__renderFilterPage__[cardId] = card.__renderFilterPage__;
+  });
+
+  // Tab switching: summary/filter per card
+  document.addEventListener("click", (e)=>{
+    const btn = e.target.closest(".tab-btn");
+    if(!btn) return;
+
+    const card = btn.closest(".data-card");
+    if(!card) return;
+
+    const tab = btn.dataset.tab;
+
+    card.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+
+    card.querySelectorAll(".card-slide").forEach(s=>{
+      s.classList.toggle("active", s.dataset.slide === tab);
+    });
+  });
+
+  // Helper: render page after apply
+  function renderFilterPage(card){
+    const cid = card.getAttribute("data-card-id") || (card.dataset.entity + "-" + card.dataset.which);
+    if(window.__renderFilterPage__ && window.__renderFilterPage__[cid]){
+      window.__renderFilterPage__[cid]();
+    }
+  }
+
 });
 </script>
-
-
 
 </body>
 </html>
