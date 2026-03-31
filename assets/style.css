@@ -230,8 +230,18 @@ a {
 }
 
 .btn-full {
-    width: 100%;
+width: 100%;
     margin-top: 10px;
+    padding: 12px 20px; /* Menentukan tinggi tombol yang sama */
+    border-radius: 50px; /* Membuat bentuk kapsul sesuai gambar */
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none; /* Menghilangkan garis pinggir hitam */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
 }
 
 .card-grid {
@@ -2034,4 +2044,101 @@ td.center{text-align:center}
     color:#555;
   }
 
+}
+/* Warna Merah */
+.btn-danger {
+    background-color: #ef4444; /* Warna merah yang modern */
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+}
+
+/* Container Utama */
+.page-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f4f7f9;
+    min-height: 80vh;
+}
+
+/* Kartu Putih di Tengah */
+.centered-card {
+    background: white;
+    width: 100%;
+    max-width: 500px; /* Lebar maksimal agar tidak terlalu lebar di PC */
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.header-section {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.main-title {
+    font-size: 24px;
+    color: #001f3f;
+    margin-top: 10px;
+}
+
+/* Styling Kartu Identitas Step 2 */
+.identity-card {
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.user-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    background: #e6f4f1;
+    color: #2d5a5e;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.info-box {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+}
+
+.info-box small { color: #888; display: block; font-size: 11px; }
+.info-box span { font-weight: bold; color: #333; }
+
+/* Tips Styling */
+.tips-container {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #ddd;
+}
+
+.tips-list {
+    padding-left: 20px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
 }
