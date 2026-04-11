@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/style.css" />
 </head>
 
-<body data-page="form" data-form-slug="pembinaan">
+<body data-page="form" data-form-slug="feedback-pembinaan">
 
 <header class="topbar">
     <div class="topbar-inner">
@@ -34,9 +34,10 @@
 <main class="page page--split">
     <section class="split-left card card--guide">
         <span class="hero-badge">Form Pengisian</span>
-        <h1 class="card-title card-title--big">📅 Kehadiran Pembinaan</h1>
+        <h1 class="card-title card-title--big">📊 Feedback Pembinaan</h1>
         <p class="card-text">
- Ikuti langkah berikut untuk mengisi kehadiran pembinaan:
+            Perhatikan panduan singkat di bawah ini agar data
+            yang kamu kirimkan tercatat dengan benar.
         </p>
         <ul class="list">
             <li>Ketik nama lengkap kamu di kolom yang tersedia.</li>
@@ -57,83 +58,53 @@
         <!-- MOBILE TITLE (hanya muncul di mobile) -->
         <div class="mobile-form-title">
             <span class="hero-badge">Form Pengisian</span>
-            <h1 class="card-title card-title--big">📅 Kehadiran Pembinaan</h1>
+            <h1 class="card-title card-title--big">📊 Feedback Pembinaan</h1>
             <p class="card-text">
-                Presensi Kehadiran Pembinaan Awardee BSI Scholarship Inspirasi Batch 5.
+                Feedback Pembinaan Awardee BSI Scholarship Inspirasi Batch 5.
             </p>
         </div>
         <div class="alert alert--warning" id="form-banner">
             <strong>Perhatian.</strong>
-            <span>
-Cukup ketik nama lengkapmu, lalu verifikasi identitas.
+            <span>Cukup ketik nama lengkapmu, lalu verifikasi identitas.
 Jika identitas sudah sesuai dengan dirimu, lanjutkan Buka Google Form.</span>
         </div>
 
-        <div id="section-input">
-    <form class="nim-form" onsubmit="return handleVerification(event)">
-        <label for="nim" class="nim-label">Ketik Nama Lengkap</label>
-        <p class="nim-info">
-            Pilih nama kamu dari daftar yang muncul untuk memvalidasi identitas.
-        </p>
 
-        <div class="nim-field-wrapper">
-            <input
-                id="nim"
-                type="text"
-                class="nim-input"
-                placeholder="Contoh: Naufal Rayyan"
-                autocomplete="off"
-                required
-            />
-            <div id="nim-suggestions" class="nim-suggestion-box"></div>
-        </div>
+        <form class="nim-form" onsubmit="return handleFormSubmit(event)">
+            <label for="nim" class="nim-label">Ketik Nama Lengkap</label>
+            <p class="nim-info">
+                Nomor induk akan muncul otomatis setelah kamu mengetik nama.
+            </p>
 
-        <button type="submit" class="btn btn-success btn-full">
-            Verifikasi Identitas
-        </button>
-    </form>
-</div>
-
-
-<div id="section-validation" style="display: none;">
-    <div class="verification-header" style="text-align: center; margin-bottom: 20px;">
-        <div style="background: #e6f4f1; color: #2d5a5e; border-radius: 50%; width: 40px; height: 40px; line-height: 40px; margin: 0 auto 10px; font-weight: bold;">✓</div>
-        <h3 style="margin: 0; color: #2d5a5e;">Identitas Diverifikasi</h3>
-        <p style="font-size: 14px; color: #10b981;">✓ Siap mengisi form</p>
-    </div>
-
-    <div style="background: #f9f9f9; border: 1px solid #eee; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
-        <div style="display: flex; align-items: center; margin-bottom: 15px;">
-            <div id="v-initial" style="background: #d1e7dd; color: #0f5132; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 12px;">AP</div>
-            <div>
-                <strong id="v-nama" style="display: block; font-size: 16px;">Nama Lengkap</strong>
-                <span id="v-univ" style="font-size: 12px; color: #666;">📍 Universitas</span>
+            <!-- === INPUT + AUTOCOMPLETE === -->
+            <div class="nim-field-wrapper">
+                <input
+                    id="nim"
+                    name="nim"
+                    type="text"
+                    class="nim-input"
+                    placeholder="Contoh: Budi Santoso"
+                    autocomplete="off"
+                    required
+                />
+                <div id="nim-suggestions" class="nim-suggestion-box"></div>
             </div>
-        </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #f0f0f0;">
-                <small style="color: #999; display: block; font-size: 10px;">Nomor Induk</small>
-                <span id="v-nim" style="font-weight: bold; font-size: 13px;">-</span>
-            </div>
-            <div style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #f0f0f0;">
-                <small style="color: #999; display: block; font-size: 10px;">Kategori</small>
-                <span id="v-kategori" style="font-weight: bold; font-size: 13px;">INSPIRASI</span>
-            </div>
-        </div>
-    </div>
+            <p class="nim-hint">
+                Pilih nama kamu dari daftar yang muncul. Lalu klik "Verifikasi Identitas"
+            </p>
 
-    <div class="alert alert--warning" style="font-size: 13px; margin-bottom: 15px;">
-        <strong>Pastikan data benar.</strong> Kesalahan tidak dapat diperbaiki.
-    </div>
+            <button type="submit" class="btn btn-success btn-full">
+    Verifikasi identitas
+</button>
+        </form>
 
-    <button onclick="goToGoogleForm()" class="btn btn-success btn-full">Lanjut ke Form ➔</button>
-    <button onclick="cancelVerification()" class="btn-danger btn-full">Bukan saya ✕</button>
-</div>
+        <div id="cek-result" class="cek-result"></div>
+
         <div class="tips-box">
             <h3 class="tips-title">Tips Penting💡</h3>
             <ul class="list">
-                <li>Kamu akan diarahkan ke Google Form untuk mengisi kehadiran.</li>
+                <li>Kamu akan mengisi pada Google Form.</li>
                 <li>Di Google Form, identitas akan terisi otomatis. Tidak perlu mengisi ulang.</li>
                 <li>Jika muncul pesan “Continue current draft?”, klik tombol "Continue" lalu lanjutkan mengisi form.</li>
                 <li>Gunakan Email aktif (untuk konfirmasi dan arsip pribadi).</li>
