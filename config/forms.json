@@ -1,157 +1,71 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Form | BSI Scholarship Inspirasi — Batch 5</title>
-    <link rel="icon" href="assets/logo.png" type="image/png" />
-    <link rel="apple-touch-icon" href="assets/logo.png" />
-    <link rel="stylesheet" href="assets/style.css" />
-</head>
-
-<body data-page="form" data-form-slug="feedback-pembinaan">
-
-<header class="topbar">
-    <div class="topbar-inner">
-        <a href="index.html" class="brand">
-            <img src="assets/logo.png" alt="BSI Scholarship Logo" class="brand-logo">
-            <div class="brand-text">
-                <div class="brand-title">BSI Scholarship Inspirasi</div>
-                <div class="brand-batch">Batch 5</div>
-            </div>
-        </a>
-        <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">☰</button>
-
-        <nav class="nav" id="mobileNav">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="list-form.html" class="nav-link nav-link nav-link--active">List Form</a>
-            <a href="rekap.html" class="nav-link">Rekap Aktivitas</a>
-            <a href="lapor.html" class="nav-link">Lapor</a>
-        </nav>
-    </div>
-</header>
-
-<main class="page page--split">
-    <section class="split-left card card--guide">
-        <span class="hero-badge">Form Pengisian</span>
-        <h1 class="card-title card-title--big">📊 Feedback Pembinaan</h1>
-        <p class="card-text">
-            Perhatikan panduan singkat di bawah ini agar data
-            yang kamu kirimkan tercatat dengan benar.
-        </p>
-        <ul class="list">
-            <li>Ketik nama lengkap kamu di kolom yang tersedia.</li>
-            <li>Klik Verifikasi Identitas dan pastikan data sudah benar.</li>
-            <li>Klik Buka Google Form & Lanjutkan.</li>
-            <li>Isi Google Form, lalu klik Kirim / Submit.</li>
-            <li>Simpan bukti submit email Google Form untuk arsip pribadi.</li>
-        </ul>
-        <div class="guide-placeholder">
-            <span class="guide-placeholder-label">YANG PERLU KAMU SIAPKAN</span>
-        <ul class="list">
-            <li>Email aktif (untuk konfirmasi dan arsip pribadi).</li>
-        </ul>
-        </div>
-    </section>
-
-    <section class="split-right card card--form-panel">
-        <!-- MOBILE TITLE (hanya muncul di mobile) -->
-        <div class="mobile-form-title">
-            <span class="hero-badge">Form Pengisian</span>
-            <h1 class="card-title card-title--big">📊 Feedback Pembinaan</h1>
-            <p class="card-text">
-                Feedback Pembinaan Awardee BSI Scholarship Inspirasi Batch 5.
-            </p>
-        </div>
-        <div class="alert alert--warning" id="form-banner">
-            <strong>Perhatian.</strong>
-            <span>Cukup ketik nama lengkapmu, lalu verifikasi identitas.
-Jika identitas sudah sesuai dengan dirimu, lanjutkan Buka Google Form.</span>
-        </div>
-
-
-        <form class="nim-form" onsubmit="return handleFormSubmit(event)">
-            <label for="nim" class="nim-label">Ketik Nama Lengkap</label>
-            <p class="nim-info">
-                Nomor induk akan muncul otomatis setelah kamu mengetik nama.
-            </p>
-
-            <!-- === INPUT + AUTOCOMPLETE === -->
-            <div class="nim-field-wrapper">
-                <input
-                    id="nim"
-                    name="nim"
-                    type="text"
-                    class="nim-input"
-                    placeholder="Contoh: Budi Santoso"
-                    autocomplete="off"
-                    required
-                />
-                <div id="nim-suggestions" class="nim-suggestion-box"></div>
-            </div>
-
-            <p class="nim-hint">
-                Pilih nama kamu dari daftar yang muncul. Lalu klik "Verifikasi Identitas"
-            </p>
-
-            <button type="submit" class="btn btn-success btn-full">
-    Verifikasi identitas
-</button>
-        </form>
-
-        <div id="cek-result" class="cek-result"></div>
-
-        <div class="tips-box">
-            <h3 class="tips-title">Tips Penting💡</h3>
-            <ul class="list">
-                <li>Kamu akan mengisi pada Google Form.</li>
-                <li>Di Google Form, identitas akan terisi otomatis. Tidak perlu mengisi ulang.</li>
-                <li>Jika muncul pesan “Continue current draft?”, klik tombol "Continue" lalu lanjutkan mengisi form.</li>
-                <li>Gunakan Email aktif (untuk konfirmasi dan arsip pribadi).</li>
-                <li>Jika terjadi error, coba refresh halaman.</li>
-            </ul>
-        </div>
-    </section>
-</main>
-
-<!-- MOBILE BOTTOM NAV -->
-<nav class="mobile-bottom-nav">
-    <a href="index.html" class="mb-item">
-        <svg viewBox="0 0 24 24" class="mb-icon">
-            <path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5z"/>
-        </svg>
-        <span class="mb-label">Home</span>
-    </a>
-
-    <a href="list-form.html" class="mb-item active">
-        <svg viewBox="0 0 24 24" class="mb-icon">
-            <path d="M4 4h16v2H4V4zm0 5h16v2H4V9zm0 5h10v2H4v-2z"/>
-        </svg>
-        <span class="mb-label">List Form</span>
-    </a>
-
-    <a href="rekap.html" class="mb-item">
-        <svg viewBox="0 0 24 24" class="mb-icon">
-            <path d="M3 13h4v8H3v-8zm7-6h4v14h-4V7zm7-4h4v18h-4V3z"/>
-        </svg>
-        <span class="mb-label">Rekap</span>
-    </a>
-
-    <a href="lapor.html" class="mb-item">
-        <svg viewBox="0 0 24 24" class="mb-icon">
-            <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 5v3h16v-3c0-3-4-5-8-5z"/>
-        </svg>
-        <span class="mb-label">Lapor</span>
-    </a>
-</nav>
-
-<footer class="footer">
-    <div class="footer-inner">
-        <span>&copy;BSI Scholarship Inspirasi Batch 5</span>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="scripts/main.js"></script>
-</body>
-</html>
+{
+  "pembinaan": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSfoAnceVf5cstDOOYA4llS_LXIGOQpG5K4rtVDdC7zBiWmp0Q/viewform",
+    "prefill": {
+      "nim": "entry.400969128",
+      "nama": "entry.1842228073",
+      "kampus": "entry.422948036",
+      "kelompok": "entry.1086022607"
+    }
+  },
+  "tugas-pengganti": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSdaIX0Jx4gvYkoaW67xiGcDbGBe8B9gEzduATh71i0qVyVx0g/viewform",
+    "prefill": {
+      "nim": "entry.767037759",
+      "nama": "entry.1788594766",
+      "kampus": "entry.387260116",
+      "kelompok": "entry.1425476042"
+    }
+  },
+  "mentoring": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSf7R1YD8d7mVUGG_fRcm3FuBgqLHnTNY_HEKcBweyCMxT-T6A/viewform",
+    "prefill": {
+      "nim": "entry.845015598",
+      "nama": "entry.884769710",
+      "kampus": "entry.898573090",
+      "kelompok": "entry.2031941423"
+    }
+  },
+    "prepost": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLScE8qh7zktQhUD0efphV52endOKPOod-rPBDGUQmylBxViafA/viewform",
+    "prefill": {
+      "nim": "entry.893872556",
+      "nama": "entry.1145598644",
+      "kelompok": "entry.2019374184"
+    }
+  },
+  "self-assessment": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSfmtesLlE8znoE2636w7c1K_CHFS3J9s5vjt9lv_QCzDdMEUg/viewform",
+    "prefill": {
+      "nim": "entry.807638154",
+      "nama": "entry.1413115439",
+      "kelompok": "entry.1920414266"
+    }
+  },
+  "lapor": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSeZHGO_VZ6Y8PzGK0e7PIfEFMxPc9WvvjNBjkszBCa6wCksDw/viewform",
+    "prefill": {
+      "nim": "entry.156306066",
+      "nama": "entry.1179886440",
+      "kampus": "entry.2045465240",
+      "kelompok": "entry.1761351346"
+    }
+  },
+    "tp-alquran": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSeyDdsZFVzyrxCD81lkU0cvucS13Jcs3KjcJrbNMVNeR8jxmQ/viewform",
+    "prefill": {
+      "nim": "entry.82606472",
+      "nama": "entry.2089215953",
+      "kampus": "entry.1125150239"
+    }
+  },
+  "feedback-pembinaan": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSfCz1ROBQshmR1-byRf3utKFdGwQoYKJf48fVvJDaBxF7nDqg/viewform",
+    "prefill": {
+      "nim": "entry.400969128",
+      "nama": "entry.1842228073",
+      "kampus": "entry.1957380867",
+      "kelompok": "entry.1086022607"
+    }
+  }
+}
