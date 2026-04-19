@@ -36,6 +36,7 @@ async function loadJson(path) {
 
 /* =========================================================
    LOAD DATA FROM SUPABASE
+   ✅ DIUPDATE: tambah kolom fakultas, prodi, cluster, lecture, status
 ========================================================= */
 
 async function ensureDataLoaded() {
@@ -43,7 +44,7 @@ async function ensureDataLoaded() {
 
     const { data, error } = await supabaseClient
         .from("mahasiswa_bsi")
-        .select("no_induk, nama, kampus, kelompok, status");
+        .select("no_induk, nama, kampus, kelompok, status, fakultas, prodi, cluster, lecture");
 
     console.log("SUPABASE DATA:", data);
     console.log("SUPABASE ERROR:", error);
@@ -53,10 +54,15 @@ async function ensureDataLoaded() {
     }
 
     mahasiswaData = (data || []).map((m) => ({
-        nim: String(m.no_induk || "").trim(),
-        nama: m.nama || "",
-        kampus: m.kampus || "",
-        kelompok: m.kelompok || ""
+        nim:      String(m.no_induk || "").trim(),
+        nama:     m.nama     || "",
+        kampus:   m.kampus   || "",
+        kelompok: m.kelompok || "",
+        status:   m.status   || "",
+        fakultas: m.fakultas || "",
+        prodi:    m.prodi    || "",
+        cluster:  m.cluster  || "",
+        lecture:  m.lecture  || ""
     }));
 }
 
@@ -113,6 +119,7 @@ async function initFormPage(slug) {
 
 /* =========================================================
    HANDLE FORM SUBMIT (VERIFIKASI SUPABASE)
+   ✅ DIUPDATE: query + tampilan result card lengkap
 ========================================================= */
 
 async function handleFormSubmit(event) {
@@ -146,10 +153,10 @@ async function handleFormSubmit(event) {
         return false;
     }
 
-    /* ---- QUERY DATA MAHASISWA ---- */
+    /* ---- QUERY DATA MAHASISWA (semua kolom) ---- */
     const { data, error } = await supabase
         .from("mahasiswa_bsi")
-        .select("no_induk, nama, kampus, kelompok, status")
+        .select("no_induk, nama, kampus, kelompok, status, fakultas, prodi, cluster, lecture")
         .ilike("no_induk", nim)
         .limit(1)
         .maybeSingle();
@@ -177,11 +184,15 @@ async function handleFormSubmit(event) {
 
     /* ---- NORMALISASI DATA ---- */
     const found = {
-        nim: String(data.no_induk || "").trim(),
-        nama: data.nama || "",
-        kampus: data.kampus || "",
+        nim:      String(data.no_induk || "").trim(),
+        nama:     data.nama     || "",
+        kampus:   data.kampus   || "",
         kelompok: data.kelompok || "",
-        status: data.status || ""
+        status:   data.status   || "",
+        fakultas: data.fakultas || "",
+        prodi:    data.prodi    || "",
+        cluster:  data.cluster  || "",
+        lecture:  data.lecture  || ""
     };
 
     /* ---- FORM CONFIG ---- */
@@ -197,25 +208,37 @@ async function handleFormSubmit(event) {
 
     /* ---- BUILD PREFILL URL ---- */
     const params = new URLSearchParams();
-    if (cfg.prefill.nim) params.set(cfg.prefill.nim, found.nim);
-    if (cfg.prefill.nama) params.set(cfg.prefill.nama, found.nama);
-    if (cfg.prefill.kampus) params.set(cfg.prefill.kampus, found.kampus);
+    if (cfg.prefill.nim)      params.set(cfg.prefill.nim,      found.nim);
+    if (cfg.prefill.nama)     params.set(cfg.prefill.nama,     found.nama);
+    if (cfg.prefill.kampus)   params.set(cfg.prefill.kampus,   found.kampus);
     if (cfg.prefill.kelompok) params.set(cfg.prefill.kelompok, found.kelompok);
 
     const finalUrl = cfg.form_url.includes("?")
         ? `${cfg.form_url}&${params.toString()}`
         : `${cfg.form_url}?${params.toString()}`;
 
-    /* ---- RESULT UI ---- */
+    /* ---- helper: tampilkan baris data atau "—" jika kosong ---- */
+    const row = (label, val) => `
+        <div class="label">${label}</div>
+        <div class="colon">:</div>
+        <div class="value${val ? '' : ' value--empty'}">${val || '—'}</div>
+    `;
+
+    /* ---- RESULT UI (lengkap dengan semua kolom) ---- */
     resultEl.innerHTML = `
         <div class="result-card">
             <p><strong>Identitas ditemukan:</strong></p>
 
             <div class="result-table">
-                <div class="label">No Induk</div><div class="colon">:</div><div class="value">${found.nim}</div>
-                <div class="label">Nama</div><div class="colon">:</div><div class="value value--bold">${found.nama || "-"}</div>
-                <div class="label">Kampus</div><div class="colon">:</div><div class="value">${found.kampus || "-"}</div>
-                <div class="label">Kelompok</div><div class="colon">:</div><div class="value">${found.kelompok || "-"}</div>
+                ${row("No Induk",         found.nim)}
+                ${row("Nama",             found.nama)}
+                ${row("Kampus",           found.kampus)}
+                ${row("Fakultas",         found.fakultas)}
+                ${row("Program Studi",    found.prodi)}
+                ${row("Cluster",          found.cluster)}
+                ${row("Kelompok",         found.kelompok)}
+                ${row("Status",           found.status)}
+                ${row("Nama Lecture",     found.lecture)}
             </div>
 
             <br/>
@@ -291,9 +314,9 @@ async function handleChangeNumber(event) {
     }
 
     const params = new URLSearchParams();
-    if (cfg.prefill.nim) params.set(cfg.prefill.nim, found.nim);
-    if (cfg.prefill.nama) params.set(cfg.prefill.nama, found.nama);
-    if (cfg.prefill.kampus) params.set(cfg.prefill.kampus, found.kampus);
+    if (cfg.prefill.nim)      params.set(cfg.prefill.nim,      found.nim);
+    if (cfg.prefill.nama)     params.set(cfg.prefill.nama,     found.nama);
+    if (cfg.prefill.kampus)   params.set(cfg.prefill.kampus,   found.kampus);
     if (cfg.prefill.kelompok) params.set(cfg.prefill.kelompok, found.kelompok);
 
     const finalUrl = cfg.form_url.includes("?")
@@ -357,6 +380,7 @@ window.toggleNav = toggleNav;
 
 /* =========================================================
    AUTOCOMPLETE NIM / NAMA / KAMPUS (SUPABASE QUERY)
+   ✅ DIUPDATE: tambah kolom fakultas, prodi, cluster, lecture, status
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -365,7 +389,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!input || !box) return;
 
-    // pakai client yang SUDAH Anda buat
     const supabase = window.supabaseClient;
 
     if (!supabase) {
@@ -393,7 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchSuggestions(keyword) {
         const { data, error } = await supabase
             .from("mahasiswa_bsi")
-            .select("no_induk, nama, kampus")
+            .select("no_induk, nama, kampus, fakultas, prodi, cluster, lecture, status")
             .or(
                 `no_induk.ilike.%${keyword}%,nama.ilike.%${keyword}%,kampus.ilike.%${keyword}%`
             )
@@ -412,9 +435,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         box.innerHTML = data.map(m => `
-            <div class="nim-suggestion-item" data-nim="${m.no_induk}">
+            <div class="nim-suggestion-item"
+                 data-nim="${m.no_induk}"
+                 data-nama="${m.nama || ""}"
+                 data-kampus="${m.kampus || ""}"
+                 data-fakultas="${m.fakultas || ""}"
+                 data-prodi="${m.prodi || ""}"
+                 data-cluster="${m.cluster || ""}"
+                 data-lecture="${m.lecture || ""}"
+                 data-status="${m.status || ""}">
                 <strong>${m.no_induk}</strong>
                 <span>${m.nama || "-"} — ${m.kampus || "-"}</span>
+                ${m.prodi    ? `<small>${m.prodi}${m.fakultas ? ' · ' + m.fakultas : ''}</small>` : ''}
+                ${m.lecture  ? `<small>🎓 ${m.lecture}</small>` : ''}
             </div>
         `).join("");
 
@@ -427,6 +460,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         input.value = item.dataset.nim;
         box.style.display = "none";
+
+        /* ---- Isi elemen info tambahan jika ada di halaman ---- */
+        const fillEl = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val || "—";
+        };
+
+        fillEl("info-nama",     item.dataset.nama);
+        fillEl("info-kampus",   item.dataset.kampus);
+        fillEl("info-fakultas", item.dataset.fakultas);
+        fillEl("info-prodi",    item.dataset.prodi);
+        fillEl("info-cluster",  item.dataset.cluster);
+        fillEl("info-lecture",  item.dataset.lecture);
+        fillEl("info-status",   item.dataset.status);
+
+        /* Tampilkan panel info jika ada */
+        const panel = document.getElementById("nim-info-panel");
+        if (panel) panel.style.display = "block";
     });
 
     document.addEventListener("click", e => {
