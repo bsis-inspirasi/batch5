@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek No Induk | Inspirasi BSI Scholarship — Batch 5</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/logo.png" />
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <style>
+    /* ===== PAGE LAYOUT ===== */
+    body[data-page="cek-nim"] .page {
+      max-width: 560px;
+      padding: 0 20px 40px;
+      margin: 0 auto;
+    }
+
+    /* ===== SEARCH BOX ===== */
+    .cnim-search-wrap {
+      position: relative;
+    }
+
+    .cnim-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 48px 0 16px;
+      border: 1.5px solid #cfd6e4;
+      border-radius: 14px;
+      font-size: 15px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color .2s;
+      background: #fff;
+    }
+
+    .cnim-input:focus {
+      border-color: #00a79d;
+      box-shadow: 0 0 0 3px rgba(0,167,157,.1);
+    }
+
+    .cnim-clear-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #9ca3af;
+      font-size: 18px;
+      line-height: 1;
+      display: none;
+      padding: 0;
+    }
+
+    .cnim-clear-btn:hover { color: #6b7280; }
+
+    /* ===== SUGGESTION DROPDOWN ===== */
+    .cnim-suggest-box {
+      display: none;
+      position: fixed;          /* fixed = lepas dari semua overflow parent */
+      background: #fff;
+      border: 1.5px solid #cfd6e4;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.13);
+      z-index: 9999;
+      overflow: hidden;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    .cnim-suggest-item {
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border-bottom: 1px solid #f3f4f6;
+      transition: background .15s;
+    }
+
+    .cnim-suggest-item:last-child { border-bottom: none; }
+    .cnim-suggest-item:hover { background: #f3f9f8; }
+
+    .cnim-suggest-item .si-nama {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f3c88;
+    }
+
+    .cnim-suggest-item .si-meta {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .cnim-suggest-item .si-kampus {
+      font-size: 12px;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    .cnim-suggest-item .si-prodi {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    /* ===== RESULT CARD ===== */
+    .cnim-result {
+      display: none;
+      margin-top: 20px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 18px;
+      overflow: hidden;
+      animation: fadeSlideUp .3s ease;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* gradient header */
+    .cnim-result-header {
+      background: linear-gradient(135deg, #1f3c88 0%, #00a79d 100%);
+      padding: 20px 22px 18px;
+      color: #fff;
+    }
+
+    .cnim-result-header .rh-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .6px;
+      opacity: .8;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .cnim-result-header .rh-nim {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      line-height: 1.1;
+    }
+
+    .cnim-result-header .rh-copy-btn {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.35);
+      color: #fff;
+      border-radius: 10px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .cnim-result-header .rh-copy-btn:hover {
+      background: rgba(255,255,255,.30);
+    }
+
+    /* detail rows */
+    .cnim-result-body {
+      padding: 16px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cnim-detail-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .cnim-detail-row .dr-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      color: #9ca3af;
+    }
+
+    .cnim-detail-row .dr-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .cnim-detail-row .dr-value.empty {
+      color: #d1d5db;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .cnim-divider {
+      height: 1px;
+      background: #f3f4f6;
+      margin: 0 -22px;
+    }
+
+    /* CTA ke halaman rekap */
+    .cnim-cta {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cnim-cta-text {
+      flex: 1;
+      font-size: 13px;
+      color: #15803d;
+      font-weight: 500;
+    }
+
+    .cnim-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: #16a34a;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+
+    .cnim-cta-btn:hover { background: #15803d; }
+
+    /* ===== EMPTY / NOT FOUND ===== */
+    .cnim-notfound {
+      display: none;
+      margin-top: 16px;
+      padding: 20px;
+      background: #fff7ed;
+      border: 1.5px solid #fed7aa;
+      border-radius: 14px;
+      text-align: center;
+      color: #9a3412;
+      font-size: 13px;
+    }
+
+    .cnim-notfound .nf-icon { font-size: 28px; margin-bottom: 6px; }
+    .cnim-notfound .nf-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+
+    /* ===== LOADING ===== */
+    .cnim-loading {
+      display: none;
+      text-align: center;
+      padding: 32px 0;
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .cnim-spinner {
+      width: 28px; height: 28px;
+      border: 3px solid #e5e7eb;
+      border-top-color: #00a79d;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin: 0 auto 10px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== HINT TEXT ===== */
+    .cnim-hint {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 480px) {
+      body[data-page="cek-nim"] .page { padding: 0 14px 32px; }
+      .cnim-result-header .rh-nim { font-size: 24px; }
+    }
+
+    html, body { overflow-x: hidden; max-width: 100%; }
+  </style>
+</head>
+
+<body data-page="cek-nim">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="BSI Scholarship Logo" class="brand-logo">
+      <div class="brand-text">
+        <div class="brand-title">BSI Scholarship Inspirasi</div>
+        <div class="brand-batch">Batch 5</div>
+      </div>
+    </a>
+
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+
+    <nav class="nav" id="mobileNav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="list-form.html" class="nav-link">List Form</a>
+      <a href="rekap.html" class="nav-link">Rekap Aktivitas</a>
+      <a href="lapor.html" class="nav-link">Lapor</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- HEADER CARD -->
+  <div class="card" style="margin-bottom:16px;">
+    <span class="hero-badge">Awardee BSI Scholarship Batch 5</span>
+    <h1 class="card-title card-title--big" style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00a79d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+        <circle cx="11" cy="11" r="8"/><path d="M11 8v3l2 2"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      Cek No Induk
+    </h1>
+    <p class="card-text" style="margin-top:4px;">Lupa No Induk kamu? Ketik nama lengkap dan pilih dari daftar yang muncul.</p>
+  </div>
+
+  <!-- SEARCH CARD -->
+  <div class="card card--form-panel">
+
+    <div class="alert alert--warning" style="margin-bottom:16px;">
+      <strong>Perhatian.</strong>
+      <span>Halaman ini hanya menampilkan No Induk milikmu. Pastikan nama yang kamu ketik adalah nama lengkap sesuai data pendaftaran.</span>
+    </div>
+
+    <label class="nim-label" for="searchNama">Ketik Nama Lengkap</label>
+    <p class="nim-info" style="margin-bottom:8px;">Pilihan nama akan muncul otomatis saat kamu mengetik.</p>
+
+    <div class="cnim-search-wrap" id="searchWrap">
+      <input
+        id="searchNama"
+        type="text"
+        class="cnim-input"
+        placeholder="Contoh: Budi Santoso"
+        autocomplete="off"
+        oninput="onSearchInput()"
+      />
+      <button class="cnim-clear-btn" id="clearBtn" onclick="clearSearch()" title="Hapus">✕</button>
+    </div>
+
+    <p class="cnim-hint">Pilih namamu dari daftar agar No Induk ditampilkan.</p>
+
+    <!-- Loading -->
+    <div class="cnim-loading" id="loadingState">
+      <div class="cnim-spinner"></div>
+      Memuat data...
+    </div>
+
+    <!-- Not found -->
+    <div class="cnim-notfound" id="notFoundState">
+      <div class="nf-icon">🔍</div>
+      <div class="nf-title">Nama tidak ditemukan</div>
+      Pastikan kamu mengetik nama sesuai data pendaftaran.
+    </div>
+
+    <!-- Result -->
+    <div class="cnim-result" id="resultCard">
+      <div class="cnim-result-header">
+        <div class="rh-label">No Induk Kamu</div>
+        <div class="rh-nim" id="resultNim">—</div>
+        <button class="rh-copy-btn" onclick="copyNim()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copyBtnText">Salin No Induk</span>
+        </button>
+      </div>
+
+      <div class="cnim-result-body">
+        <div class="cnim-detail-row">
+          <span class="dr-label">Nama Lengkap</span>
+          <span class="dr-value" id="resultNama">—</span>
+        </div>
+
+        <div class="cnim-divider"></div>
+
+        <div class="cnim-detail-row">
+          <span class="dr-label">Asal Kampus</span>
+          <span class="dr-value" id="resultKampus">—</span>
+        </div>
+
+        <div class="cnim-divider"></div>
+
+        <div class="cnim-detail-row">
+          <span class="dr-label">Fakultas</span>
+          <span class="dr-value" id="resultFakultas">—</span>
+        </div>
+
+        <div class="cnim-divider"></div>
+
+        <div class="cnim-detail-row">
+          <span class="dr-label">Program Studi</span>
+          <span class="dr-value" id="resultProdi">—</span>
+        </div>
+
+        <div class="cnim-divider"></div>
+
+        <div class="cnim-detail-row">
+          <span class="dr-label">Cluster BSI Scholarship</span>
+          <span class="dr-value" id="resultCluster">—</span>
+        </div>
+
+        <div class="cnim-divider"></div>
+
+        <div class="cnim-detail-row">
+          <span class="dr-label">Kelompok</span>
+          <span class="dr-value" id="resultKelompok">—</span>
+        </div>
+
+        <div class="cnim-divider"></div>
+
+        <div class="cnim-detail-row">
+          <span class="dr-label">Nama Lecture Mentoring</span>
+          <span class="dr-value" id="resultLecture">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA ke rekap -->
+    <div class="cnim-cta" id="ctaRekap" style="display:none;">
+      <span class="cnim-cta-text">Sudah tahu No Induk-mu? Cek progress aktivitasmu di halaman Rekap.</span>
+      <a href="rekap.html" class="cnim-cta-btn" id="ctaLink">
+        Lihat Rekap
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy;BSI Scholarship Inspirasi Batch 5</span>
+  </div>
+</footer>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-bottom-nav">
+  <a href="index.html" class="mb-item">
+    <svg viewBox="0 0 24 24" class="mb-icon"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5z"/></svg>
+    <span class="mb-label">Home</span>
+  </a>
+  <a href="list-form.html" class="mb-item">
+    <svg viewBox="0 0 24 24" class="mb-icon"><path d="M4 4h16v2H4V4zm0 5h16v2H4V9zm0 5h10v2H4v-2z"/></svg>
+    <span class="mb-label">List Form</span>
+  </a>
+  <a href="rekap.html" class="mb-item">
+    <svg viewBox="0 0 24 24" class="mb-icon"><path d="M3 13h4v8H3v-8zm7-6h4v14h-4V7zm7-4h4v18h-4V3z"/></svg>
+    <span class="mb-label">Rekap</span>
+  </a>
+  <a href="lapor.html" class="mb-item">
+    <svg viewBox="0 0 24 24" class="mb-icon"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 5v3h16v-3c0-3-4-5-8-5z"/></svg>
+    <span class="mb-label">Lapor</span>
+  </a>
+</nav>
+
+<!-- Dropdown portal: di luar semua card agar tidak kena overflow:hidden -->
+<div class="cnim-suggest-box" id="suggestBox"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ===== CONFIG ===== */
+const SUPABASE_URL     = "https://iyfwaqwmnmjfagszttts.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml5ZndhcXdtbm1qZmFnc3p0dHRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc4NTEwMTgsImV4cCI6MjA4MzQyNzAxOH0.f2xb_aQDIj4tIPKwTTC9dgIi-9qFv0G252T5uo9XwXo";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* ===== STATE ===== */
+let awardeeList = [];   // [{no_induk, nama, kampus, kelompok, lecture}]
+let isLoaded    = false;
+let selectedNim = null;
+
+/* ===== ELEMENTS ===== */
+const searchInput  = document.getElementById("searchNama");
+const clearBtn     = document.getElementById("clearBtn");
+const suggestBox   = document.getElementById("suggestBox");
+const loadingState = document.getElementById("loadingState");
+const notFoundState = document.getElementById("notFoundState");
+const resultCard   = document.getElementById("resultCard");
+const ctaRekap     = document.getElementById("ctaRekap");
+
+/* ===== NAV ===== */
+function toggleNav() {
+  document.getElementById("mobileNav").classList.toggle("nav-open");
+}
+document.addEventListener("click", e => {
+  const nav    = document.getElementById("mobileNav");
+  const toggle = document.querySelector(".nav-toggle");
+  if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+    nav.classList.remove("nav-open");
+  }
+});
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 768) document.getElementById("mobileNav").classList.remove("nav-open");
+});
+
+/* ===== LOAD DATA FROM SUPABASE ===== */
+async function loadAwardee() {
+  loadingState.style.display = "block";
+
+  try {
+    /* ---- Ambil SEMUA dari mahasiswa_bsi (sumber utama, sudah ada lecture) ---- */
+    let all = [];
+    let from = 0;
+
+    while (true) {
+      const { data, error } = await sb
+        .from("mahasiswa_bsi")
+        .select("no_induk, nama, kampus, kelompok, status, fakultas, prodi, cluster, lecture")
+        .range(from, from + 999);
+
+      if (error) {
+        console.error("mahasiswa_bsi error:", error.message);
+        break;
+      }
+      if (!data || !data.length) break;
+      all = all.concat(data);
+      if (data.length < 1000) break;
+      from += 1000;
+    }
+
+    console.log(`Total data dimuat: ${all.length} baris`);
+
+    /* ---- Deduplicate by no_induk, keep first occurrence ---- */
+    const seen = {};
+    all.forEach(r => {
+      if (r.no_induk && !seen[r.no_induk]) {
+        seen[r.no_induk] = {
+          no_induk : r.no_induk,
+          nama     : (r.nama     || "").trim(),
+          kampus   : (r.kampus   || "").trim(),
+          kelompok : (r.kelompok || "").trim(),
+          status   : (r.status   || "").trim(),
+          lecture  : (r.lecture  || "").trim(),
+          fakultas : (r.fakultas || "").trim(),
+          prodi    : (r.prodi    || "").trim(),
+          cluster  : (r.cluster  || "").trim(),
+        };
+      }
+    });
+
+    awardeeList = Object.values(seen).sort((a, b) => a.nama.localeCompare(b.nama, "id"));
+    isLoaded = true;
+    console.log(`Awardee list siap: ${awardeeList.length} orang`);
+  } catch (err) {
+    console.error("Gagal load data:", err);
+  } finally {
+    loadingState.style.display = "none";
+  }
+}
+
+/* ===== SEARCH INPUT HANDLER ===== */
+function onSearchInput() {
+  const q = searchInput.value.trim();
+  clearBtn.style.display = q ? "block" : "none";
+
+  // Reset result
+  hideResult();
+  notFoundState.style.display = "none";
+
+  if (!q) {
+    closeSuggest();
+    return;
+  }
+
+  if (!isLoaded) return;
+
+  const lower = q.toLowerCase();
+  const matches = awardeeList
+    .filter(a => a.nama.toLowerCase().includes(lower))
+    .slice(0, 15);
+
+  if (!matches.length) {
+    closeSuggest();
+    notFoundState.style.display = "block";
+    return;
+  }
+
+  renderSuggest(matches);
+}
+
+/* ===== SUGGEST DROPDOWN ===== */
+function positionSuggestBox() {
+  const wrap = document.getElementById("searchWrap");
+  const rect = wrap.getBoundingClientRect();
+  suggestBox.style.left   = rect.left + "px";
+  suggestBox.style.top    = (rect.bottom + 6) + "px";
+  suggestBox.style.width  = rect.width + "px";
+}
+
+function renderSuggest(items) {
+  suggestBox.innerHTML = "";
+
+  items.forEach(a => {
+    const div = document.createElement("div");
+    div.className = "cnim-suggest-item";
+    div.innerHTML = `
+      <span class="si-nama">${highlight(a.nama, searchInput.value.trim())}</span>
+      <span class="si-meta si-kampus">${a.kampus || "—"}</span>
+      ${a.prodi ? `<span class="si-meta si-prodi">${a.prodi}${a.fakultas ? ' &middot; ' + a.fakultas : ''}</span>` : ''}
+    `;
+    div.addEventListener("mousedown", e => {
+      e.preventDefault();
+      selectAwardee(a);
+    });
+    suggestBox.appendChild(div);
+  });
+
+  positionSuggestBox();
+  suggestBox.style.display = "block";
+}
+
+// Reposisi saat scroll / resize agar tetap pas
+window.addEventListener("scroll", () => {
+  if (suggestBox.style.display === "block") positionSuggestBox();
+}, true);
+window.addEventListener("resize", () => {
+  if (suggestBox.style.display === "block") positionSuggestBox();
+});
+
+function highlight(text, query) {
+  if (!query) return text;
+  const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
+  return text.replace(re, "<mark style='background:#d1fae5;color:#065f46;border-radius:3px;padding:0 2px;'>$1</mark>");
+}
+
+function closeSuggest() {
+  suggestBox.style.display = "none";
+  suggestBox.innerHTML = "";
+}
+
+searchInput.addEventListener("blur", () => {
+  setTimeout(closeSuggest, 150);
+});
+
+/* ===== SELECT AWARDEE ===== */
+function selectAwardee(a) {
+  searchInput.value = a.nama;
+  selectedNim = a.no_induk;
+  closeSuggest();
+  showResult(a);
+}
+
+/* ===== SHOW RESULT ===== */
+function showResult(a) {
+  document.getElementById("resultNim").textContent    = a.no_induk  || "—";
+  document.getElementById("resultNama").textContent   = a.nama      || "—";
+  document.getElementById("resultKampus").textContent = a.kampus    || "—";
+
+  const setField = (id, val) => {
+    const el = document.getElementById(id);
+    if (val) {
+      el.textContent = val;
+      el.classList.remove("empty");
+    } else {
+      el.textContent = "Tidak tersedia";
+      el.classList.add("empty");
+    }
+  };
+
+  setField("resultFakultas", a.fakultas);
+  setField("resultProdi",    a.prodi);
+  setField("resultCluster",  a.cluster);
+  setField("resultKelompok", a.kelompok);
+  setField("resultLecture",  a.lecture);
+
+  resultCard.style.display = "block";
+  notFoundState.style.display = "none";
+
+  // CTA link ke rekap dengan no_induk pre-fill
+  const ctaLink = document.getElementById("ctaLink");
+  ctaLink.href = `rekap.html?nim=${encodeURIComponent(a.no_induk)}`;
+  ctaRekap.style.display = "flex";
+
+  // Reset copy btn text
+  document.getElementById("copyBtnText").textContent = "Salin No Induk";
+}
+
+function hideResult() {
+  resultCard.style.display = "none";
+  ctaRekap.style.display   = "none";
+  selectedNim = null;
+}
+
+/* ===== COPY NIM ===== */
+function copyNim() {
+  const nim = document.getElementById("resultNim").textContent;
+  if (!nim || nim === "—") return;
+
+  navigator.clipboard.writeText(nim).then(() => {
+    const btn = document.getElementById("copyBtnText");
+    btn.textContent = "Tersalin! ✓";
+    setTimeout(() => { btn.textContent = "Salin No Induk"; }, 2000);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement("textarea");
+    ta.value = nim;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    const btn = document.getElementById("copyBtnText");
+    btn.textContent = "Tersalin! ✓";
+    setTimeout(() => { btn.textContent = "Salin No Induk"; }, 2000);
+  });
+}
+
+/* ===== CLEAR ===== */
+function clearSearch() {
+  searchInput.value = "";
+  clearBtn.style.display = "none";
+  closeSuggest();
+  hideResult();
+  notFoundState.style.display = "none";
+  searchInput.focus();
+}
+
+/* ===== INIT ===== */
+loadAwardee();
+</script>
+
+</body>
+</html>
