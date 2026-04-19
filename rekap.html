@@ -678,7 +678,7 @@
       <p class="nim-hint" style="margin-top:6px;">
         Lupa No Induk? 
         <a href="https://inspirasi5.bsischolarhub.id/nomor-induk.html" style="color:#00a79d; font-weight:600; text-decoration:none;">
-          Klik disini
+          Klik diisni
         </a>
       </p>
 
@@ -834,6 +834,7 @@ const PAGE_SIZE = 20;
 let rawData = [];
 let filteredData = [];
 let currentPage = 1;
+let _filterDebounce = null;   // debounce timer untuk input NIM
 
 /* ================= MULTI PERIODE STATE ================= */
 let selectedPeriode = [];
@@ -892,7 +893,8 @@ function setupSuggest(input, values) {
 
     if (!q) {
       globalSuggest.style.display = "none";
-      applyFilter();
+      clearTimeout(_filterDebounce);
+      _filterDebounce = setTimeout(applyFilter, 300);
       return;
     }
 
@@ -902,7 +904,8 @@ function setupSuggest(input, values) {
 
     if (!match.length) {
       globalSuggest.style.display = "none";
-      applyFilter();
+      clearTimeout(_filterDebounce);
+      _filterDebounce = setTimeout(applyFilter, 300);
       return;
     }
 
@@ -923,7 +926,8 @@ function setupSuggest(input, values) {
     globalSuggest.style.width = rect.width + "px";
     globalSuggest.style.display = "block";
 
-    applyFilter();
+    clearTimeout(_filterDebounce);
+    _filterDebounce = setTimeout(applyFilter, 300);
   });
 }
 
@@ -1015,31 +1019,30 @@ function renderTable() {
   const GAS_BASE_URL =
     "https://script.google.com/macros/s/AKfycbwvKRX-v8Kn9xifu3Qda9soh4alsfyBhsYuRI1y6p2ruTikanaIg4Q6rQtYL83AyAw9/exec";
 
+  const fragment = document.createDocumentFragment();
   rows.forEach(r => {
-    const tampilPeriode = monthLabelSafe(r.tanggal);     // tampil di tabel sesuai tanggal row
-    const periodeFolder = periodeFolderGeser(r.tanggal); // folder/file per 3 bulan geser
-
+    const tampilPeriode = monthLabelSafe(r.tanggal);
+    const periodeFolder = periodeFolderGeser(r.tanggal);
     const nim = r.no_induk;
+    const reportUrl = `${GAS_BASE_URL}?periode=${encodeURIComponent(periodeFolder)}&nim=${encodeURIComponent(nim)}`;
 
-    const reportUrl =
-      `${GAS_BASE_URL}?periode=${encodeURIComponent(periodeFolder)}&nim=${encodeURIComponent(nim)}`;
-
-    rekapBody.innerHTML += `
-      <tr>
-        <td>${r.no_induk ?? ""}</td>
-        <td class="td-bold">${r.nama ?? ""}</td>
-        <td>${r.kampus ?? ""}</td>
-        <td>${r.kelompok ?? ""}</td>
-        <td>${tampilPeriode}</td>
-        ${icon(r.pre_test)}
-        ${icon(r.post_test)}
-        ${icon(r.assessment)}
-        ${icon(r.mentoring)}
-        ${icon(r.pembinaan)}
-        ${icon(r.kelas_al_quran)}
-      </tr>
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${r.no_induk ?? ""}</td>
+      <td class="td-bold">${r.nama ?? ""}</td>
+      <td>${r.kampus ?? ""}</td>
+      <td>${r.kelompok ?? ""}</td>
+      <td>${tampilPeriode}</td>
+      ${icon(r.pre_test)}
+      ${icon(r.post_test)}
+      ${icon(r.assessment)}
+      ${icon(r.mentoring)}
+      ${icon(r.pembinaan)}
+      ${icon(r.kelas_al_quran)}
     `;
+    fragment.appendChild(tr);
   });
+  rekapBody.appendChild(fragment);
 
   pageInfo.textContent =
     `Page ${currentPage} / ${Math.max(1, Math.ceil(filteredData.length / PAGE_SIZE))}`;
@@ -1254,32 +1257,43 @@ function goLast(){
 
 /* ================= LOAD DATA ================= */
 async function init() {
+  /* ---- 1. Load daftar awardee RINGAN untuk autocomplete (dari mahasiswa_bsi) ---- */
+  let awardeeList = [];
+  {
+    let from = 0;
+    while (true) {
+      const { data, error } = await supabaseClient
+        .from("mahasiswa_bsi")
+        .select("no_induk, nama, kampus")
+        .range(from, from + 999);
+      if (error || !data || !data.length) break;
+      awardeeList = awardeeList.concat(data.map(r => ({
+        nim: r.no_induk || "",
+        nama: r.nama || "",
+        kampus: r.kampus || ""
+      })));
+      if (data.length < 1000) break;
+      from += 1000;
+    }
+  }
+
+  /* ---- 2. Load rekap_bsi HANYA untuk keperluan periode filter ---- */
   let all = [];
-  let from = 0;
-
-  while (true) {
-    const { data, error } = await supabaseClient
-      .from("rekap_bsi")
-      .select("no_induk,nama,kampus,kelompok,tanggal,pre_test,post_test,assessment,mentoring,pembinaan,kelas_al_quran")
-      .range(from, from + 999);
-
-    if (error || !data || !data.length) break;
-
-    all = all.concat(data);
-    if (data.length < 1000) break;
-    from += 1000;
+  {
+    let from = 0;
+    while (true) {
+      const { data, error } = await supabaseClient
+        .from("rekap_bsi")
+        .select("no_induk,nama,kampus,kelompok,tanggal,pre_test,post_test,assessment,mentoring,pembinaan,kelas_al_quran")
+        .range(from, from + 999);
+      if (error || !data || !data.length) break;
+      all = all.concat(data);
+      if (data.length < 1000) break;
+      from += 1000;
+    }
   }
 
   rawData = filteredData = all;
-
-  // Build unique awardee list (deduplicated by no_induk)
-  const awardeeMap = {};
-  all.forEach(r => {
-    if (r.no_induk && !awardeeMap[r.no_induk]) {
-      awardeeMap[r.no_induk] = { nim: r.no_induk, nama: r.nama || "", kampus: r.kampus || "" };
-    }
-  });
-  const awardeeList = Object.values(awardeeMap);
 
   // Rich NIM suggest dropdown (pakai class nim-suggestion-box dari style.css)
   const nimSuggest = document.getElementById("nimSuggest");
@@ -1311,7 +1325,8 @@ async function init() {
 
   fNoInduk.addEventListener("input", () => {
     showNimSuggest(fNoInduk.value.trim().toLowerCase());
-    applyFilter();
+    clearTimeout(_filterDebounce);
+    _filterDebounce = setTimeout(applyFilter, 300);
   });
   fNoInduk.addEventListener("blur", () => {
     setTimeout(() => { nimSuggest.style.display = "none"; }, 150);
