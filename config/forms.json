@@ -67,5 +67,14 @@
       "kampus": "entry.1957380867",
       "kelompok": "entry.1086022607"
     }
+  },
+  "survey": {
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSeJUgvv58bvCT8PzEw_jEfZArBGdGhDx08o2Qb5o6xgGpnYpQ/viewform",
+    "prefill": {
+      "nim": "entry.175373328",
+      "nama": "entry.630718567",
+      "kampus": "entry.417385916",
+      "kelompok": "entry.1775508143"
+    }
   }
 }
