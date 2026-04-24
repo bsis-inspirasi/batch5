@@ -627,929 +627,140 @@
 
 <main class="page">
 
-  <!-- TOP BAR: judul + keterangan sejajar -->
-  <div class="card" style="margin-bottom:14px;">
-    <div class="rekap-top-bar">
-      <div class="rtb-guide">
-        <span class="hero-badge">Pembinaan BSI Scholarship Batch 5</span>
-        <h1 class="card-title card-title--big" style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00a79d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          Rekap Aktivitas
-        </h1>
-        <p class="card-text" style="margin-top:4px;">Kelas Pembinaan, Mentoring, Kelas Al-Qur'an, Pre Test, Post Test, Assessment dari Desember 2025 - hari ini</p>
-      </div>
-      <div class="rtb-legend guide-placeholder" style="margin:0;min-width:260px;">
-        <span class="guide-placeholder-label">Keterangan Status</span>
-        <ul class="list" style="margin-top:8px;">
-          <li style="display:flex;align-items:center;gap:8px;"><span class="status-badge status-ok"></span><span>Hadir — menghadiri kegiatan</span></li>
-          <li style="display:flex;align-items:center;gap:8px;"><span class="status-badge status-no"></span><span>Tidak Hadir — tidak menghadiri kegiatan</span></li>
-          <li style="display:flex;align-items:center;gap:8px;"><span class="status-badge status-tp">TP</span><span>Tugas Pengganti — kehadiran diganti tugas</span></li>
-          <li style="display:flex;align-items:center;gap:8px;"><span class="status-badge" style="background:#f3f4f6;border:2px solid #e5e7eb;"></span><span style="color:#6b7280;">Kosong — kegiatan tidak/belum terlaksana</span></li>
-        </ul>
+  <main class="page" style="display:flex; align-items:center; justify-content:center; min-height:60vh;">
+
+  <div style="text-align:center; padding:2.5rem 1.5rem; max-width:440px; width:100%;">
+
+    <!-- Progress bar animasi di atas -->
+    <style>
+      @keyframes maint-slide { to { background-position: -200% 0; } }
+      @keyframes maint-pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+      @keyframes maint-float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-7px);} }
+      @keyframes maint-spin  { to{transform:rotate(360deg);} }
+      @keyframes maint-dot   { 0%,80%,100%{transform:scaleY(1);opacity:.4;} 40%{transform:scaleY(1.7);opacity:1;} }
+    </style>
+
+    <div style="position:fixed;top:0;left:0;right:0;height:4px;
+                background:linear-gradient(90deg,#1f3c88,#00a79d,#1f3c88);
+                background-size:200% 100%;
+                animation:maint-slide 2.4s linear infinite;
+                z-index:9999;"></div>
+
+    <!-- Ikon floating + ring spin -->
+    <div style="position:relative;width:88px;height:88px;margin:0 auto 1.5rem;
+                animation:maint-float 3s ease-in-out infinite;">
+
+      <svg style="position:absolute;inset:0;animation:maint-spin 3s linear infinite;"
+           width="88" height="88" viewBox="0 0 88 88" fill="none">
+        <circle cx="44" cy="44" r="40" stroke="#e5e7eb" stroke-width="2"/>
+        <path d="M44 4 A40 40 0 0 1 84 44" stroke="#00a79d" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M84 44 A40 40 0 0 1 64 78" stroke="#1f3c88" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+
+      <div style="position:absolute;inset:12px;background:#fff;border-radius:50%;
+                  border:2px solid #e5e7eb;display:flex;align-items:center;justify-content:center;">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <rect x="5" y="5" width="26" height="26" rx="6" fill="#1f3c88" opacity=".12"/>
+          <path d="M11 20l4-4 4 4 6-7" stroke="#1f3c88" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="26" cy="26" r="5" fill="#00a79d"/>
+          <path d="M24 26h4M26 24v4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
       </div>
     </div>
+
+    <!-- Badge status -->
+    <div style="display:inline-flex;align-items:center;gap:6px;
+                background:#fff8e1;border:1.5px solid #f59e0b;color:#92400e;
+                font-size:11px;font-weight:600;padding:4px 14px;border-radius:999px;
+                margin-bottom:1rem;letter-spacing:.3px;">
+      <span style="width:7px;height:7px;border-radius:50%;background:#f59e0b;
+                   animation:maint-pulse 1.2s ease-in-out infinite;display:block;"></span>
+      Pemeliharaan Sistem
+    </div>
+
+    <h2 style="font-size:22px;font-weight:700;color:#1f2937;margin:0 0 0.5rem;line-height:1.3;">
+      Website Sedang Diperbaiki
+    </h2>
+
+    <p style="font-size:14px;color:#6b7280;line-height:1.7;margin:0 0 1.25rem;">
+      Kami sedang melakukan pemeliharaan dan peningkatan sistem.<br>
+      Website akan kembali normal dalam waktu dekat.<br>
+      Mohon maaf atas ketidaknyamanan ini.
+    </p>
+
+    <div style="width:40px;height:2px;background:linear-gradient(90deg,#1f3c88,#00a79d);
+                border-radius:2px;margin:0 auto 1.5rem;"></div>
+
+    <!-- 3 chip info -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem;">
+
+      <div style="background:#f8faff;border:1px solid #e5e7eb;border-radius:14px;
+                  padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;">
+        <div style="width:26px;height:26px;border-radius:50%;background:#e0f7f5;
+                    display:flex;align-items:center;justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00a79d" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <span style="font-size:11px;font-weight:600;color:#6b7280;text-align:center;line-height:1.3;">Sistem aktif<br>diperbaiki</span>
+      </div>
+
+      <div style="background:#f8faff;border:1px solid #e5e7eb;border-radius:14px;
+                  padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;">
+        <div style="width:26px;height:26px;border-radius:50%;background:#e6eeff;
+                    display:flex;align-items:center;justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1f3c88" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <span style="font-size:11px;font-weight:600;color:#6b7280;text-align:center;line-height:1.3;">Segera<br>kembali</span>
+      </div>
+
+      <div style="background:#f8faff;border:1px solid #e5e7eb;border-radius:14px;
+                  padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;">
+        <div style="width:26px;height:26px;border-radius:50%;background:#fff8e1;
+                    display:flex;align-items:center;justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span style="font-size:11px;font-weight:600;color:#6b7280;text-align:center;line-height:1.3;">Data aman<br>terlindungi</span>
+      </div>
+
+    </div>
+
+    <!-- Dots loading animasi -->
+    <div style="display:flex;align-items:flex-end;justify-content:center;gap:5px;height:18px;margin-bottom:1.5rem;">
+      <span style="width:4px;height:14px;background:#00a79d;border-radius:2px;
+                   display:block;animation:maint-dot 1.2s ease-in-out infinite;"></span>
+      <span style="width:4px;height:14px;background:#00a79d;border-radius:2px;
+                   display:block;animation:maint-dot 1.2s ease-in-out .2s infinite;"></span>
+      <span style="width:4px;height:14px;background:#00a79d;border-radius:2px;
+                   display:block;animation:maint-dot 1.2s ease-in-out .4s infinite;"></span>
+    </div>
+
+    <p style="font-size:11px;color:#9ca3af;margin:0 0 6px;">
+      BSI Scholarship Inspirasi — Batch 5
+    </p>
+
+<!-- Ganti paragraf kontak admin dengan ini -->
+<div style="margin-top:1.5rem;background:#f8faff;border:1px solid #e5e7eb;
+            border-radius:14px;padding:14px 18px;max-width:400px;width:100%;">
+  <p style="font-size:12px;color:#6b7280;margin:0 0 10px;line-height:1.5;">
+    Sementara itu, klik tombol dibawah untuk melihat progressmu
+  </p>
+  <a href="https://docs.google.com/spreadsheets/d/1gG4lfZEOg2pQsehh1T47dLQ6B7c1MwHqsryvM5jZdw8/edit?usp=sharing"
+     target="_blank" rel="noopener"
+     style="display:inline-flex;align-items:center;gap:7px;
+            background:#1f3c88;color:#fff;font-size:12px;font-weight:600;
+            padding:8px 16px;border-radius:10px;text-decoration:none;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <line x1="12" y1="18" x2="12" y2="12"/>
+      <line x1="9" y1="15" x2="15" y2="15"/>
+    </svg>
+    Lihat Progress di Google Sheets
+  </a>
+</div>
+
   </div>
-
-  <!-- FORM + HASIL: full width -->
-  <section class="card card--form-panel">
-
-    <div class="alert alert--warning">
-      <strong>Perhatian.</strong>
-      <span>Ketik No Induk, lalu pilih dari daftar yang muncul untuk menampilkan rekap aktivitas.</span>
-    </div>
-
-    <!-- INPUT NAMA / NIM -->
-    <form class="nim-form" onsubmit="return false;">
-      <label for="fNoInduk" class="nim-label">Ketik No Induk</label>
-      <p class="nim-info">Pilihan akan muncul otomatis saat kamu mengetik.</p>
-
-      <div class="nim-field-wrapper">
-        <input
-          id="fNoInduk"
-          type="text"
-          class="nim-input"
-          placeholder="Contoh: I25010001"
-          autocomplete="off"
-        />
-        <div id="nimSuggest" class="nim-suggestion-box"></div>
-      </div>
-
-      <p class="nim-hint">Pilih identitasmu dari daftar, lalu rekap aktivitas akan muncul di bawah.</p>
-
-      <p class="nim-hint" style="margin-top:6px;">
-        Lupa No Induk? 
-        <a href="https://inspirasi5.bsischolarhub.id/nomor-induk.html" style="color:#00a79d; font-weight:600; text-decoration:none;">
-          Klik disini
-        </a>
-      </p>
-
-      <!-- Filter Tambahan (hidden) -->
-      <div id="extraFilters" style="display:none; margin-top:10px;">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
-            <input id="fNama" class="nim-input" style="margin-top:0;" placeholder="Nama" autocomplete="off" />
-            <input id="fKampus" class="nim-input" style="margin-top:0;" placeholder="Kampus" autocomplete="off" />
-            <input id="fKelompok" class="nim-input" style="margin-top:0;" placeholder="Kelompok" autocomplete="off" />
-
-            <select id="fPeriode" style="display:none;"><option value="">Semua Periode</option></select>
-
-            <div class="periode-dropdown" id="periodeDropdown" style="margin-top:0;">
-              <button type="button" class="periode-btn" id="periodeBtn" aria-haspopup="listbox" aria-expanded="false">
-                <span class="periode-btn-label" id="periodeBtnLabel">Semua Periode</span>
-                <span class="periode-btn-caret">▼</span>
-              </button>
-              <div class="periode-panel" id="periodePanel">
-                <div class="periode-panel-head">
-                  <div class="periode-panel-title">Pilih Periode</div>
-                  <div class="periode-panel-actions">
-                    <button type="button" class="periode-mini-btn" id="periodeSelectAll">All</button>
-                    <button type="button" class="periode-mini-btn" id="periodeClear">Clear</button>
-                  </div>
-                </div>
-                <div id="periodeList"></div>
-              </div>
-            </div>
-          </div>
-      </div>
-
-      <button type="button" class="btn btn-full" style="margin-top:14px;background:#f1f5f9;color:#374151;border:1.5px solid #e5e7eb;font-weight:600;padding:10px;" onclick="resetFilter()">
-        Reset Pencarian
-      </button>
-    </form>
-
-    <!-- HASIL REKAP -->
-    <div id="rekapResult" style="margin-top:20px;">
-
-      <!-- Empty state -->
-      <div id="emptyState" class="tips-box" style="text-align:center;padding:28px 16px;">
-        <div style="margin-bottom:10px;"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-        <div style="font-size:14px;font-weight:600;color:#374151;margin-bottom:4px;">Belum ada data</div>
-        <div style="font-size:12px;color:#6b7280;">Masukkan No Induk untuk menampilkan rekap.</div>
-      </div>
-
-      <!-- KPI strip -->
-      <div id="kpiStrip" style="display:none; margin-bottom:14px;">
-        <div class="kpi-strip-grid">
-          <div class="kpi-chip"><span class="kpi-chip-label">Pre-Test</span><strong class="kpi-chip-val" id="kpiPre">-</strong></div>
-          <div class="kpi-chip"><span class="kpi-chip-label">Post-Test</span><strong class="kpi-chip-val" id="kpiPost">-</strong></div>
-          <div class="kpi-chip"><span class="kpi-chip-label">Assessment</span><strong class="kpi-chip-val" id="kpiAssessment">-</strong></div>
-          <div class="kpi-chip"><span class="kpi-chip-label">Mentoring</span><strong class="kpi-chip-val" id="kpiMentoring">-</strong></div>
-          <div class="kpi-chip"><span class="kpi-chip-label">Pembinaan</span><strong class="kpi-chip-val" id="kpiPembinaan">-</strong></div>
-          <div class="kpi-chip"><span class="kpi-chip-label">Kelas Al-Qur'an</span><strong class="kpi-chip-val" id="kpiAlQuran">-</strong></div>
-        </div>
-      </div>
-
-      <!-- Rekap section -->
-      <div id="rekapSection" style="display:none;">
-
-        <!-- DESKTOP: table -->
-        <div class="rekap-desktop">
-          <div class="table-wrap">
-            <table class="rekap-table">
-              <thead>
-                <tr>
-                  <th>No Induk</th>
-                  <th>Nama</th>
-                  <th>Kampus</th>
-                  <th>Kel</th>
-                  <th>Bulan</th>
-                  <th>Pre Test</th>
-                  <th>Post Test</th>
-                  <th>Assessment</th>
-                  <th>Mentoring</th>
-                  <th>Pembinaan</th>
-                  <th>Kelas Al-Qur'an</th>
-                </tr>
-              </thead>
-              <tbody id="rekapBody"></tbody>
-            </table>
-          </div>
-          <div class="pagination">
-            <button onclick="goFirst()">First</button>
-            <button onclick="goPrev()">Prev</button>
-            <span id="pageInfo"></span>
-            <button onclick="goNext()">Next</button>
-            <button onclick="goLast()">Last</button>
-          </div>
-        </div>
-
-        <!-- MOBILE: cards -->
-        <div class="rekap-mobile" id="rekapMobile"></div>
-
-        <!-- QUARTERLY SUMMARY -->
-        <div id="quarterlySummary" style="margin-top:24px;"></div>
-
-      </div>
-    </div>
-
-  </section>
-
 </main>
-
-<footer class="footer">
-    <div class="footer-inner">
-        <span>&copy;BSI Scholarship Inspirasi Batch 5</span>
-    </div>
-</footer>
-
-<!-- GLOBAL AUTOCOMPLETE -->
-<div id="globalSuggest" class="suggestion-global"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-/* ================= EXTRA FILTERS TOGGLE ================= */
-function toggleExtraFilters() {
-  const el = document.getElementById("extraFilters");
-  const icon = document.getElementById("filterToggleIcon");
-  const open = el.style.display === "none" || el.style.display === "";
-  el.style.display = open ? "block" : "none";
-  icon.textContent = open ? "－" : "＋";
-}
-
-/* ================= NAV ================= */
-function toggleNav() {
-  document.getElementById("mobileNav").classList.toggle("nav-open");
-}
-
-document.addEventListener("click", function (e) {
-  const nav = document.getElementById("mobileNav");
-  const toggle = document.querySelector(".nav-toggle");
-
-  if (!nav.contains(e.target) && !toggle.contains(e.target)) {
-    nav.classList.remove("nav-open");
-  }
-});
-
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 768) {
-    document.getElementById("mobileNav").classList.remove("nav-open");
-  }
-});
-
-/* ================= CONFIG ================= */
-const SUPABASE_URL = "https://iyfwaqwmnmjfagszttts.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml5ZndhcXdtbm1qZmFnc3p0dHRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc4NTEwMTgsImV4cCI6MjA4MzQyNzAxOH0.f2xb_aQDIj4tIPKwTTC9dgIi-9qFv0G252T5uo9XwXo";
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-const PAGE_SIZE = 20;
-let rawData = [];
-let filteredData = [];
-let currentPage = 1;
-let _filterDebounce = null;   // debounce timer untuk input NIM
-
-/* ================= MULTI PERIODE STATE ================= */
-let selectedPeriode = [];
-
-/* ================= URL FILTER (FROM HOME) ================= */
-const _qs = new URLSearchParams(window.location.search);
-const _filterType = (_qs.get("type") || "").trim().toLowerCase();   // peserta | kampus | kelompok
-const _filterValue = (_qs.get("value") || "").trim();
-
-/* ================= UTIL ================= */
-function monthLabel(d) {
-  const [y, m] = d.split("-");
-  const M = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
-  return `${M[m-1]} ${y}`;
-}
-
-function icon(v) {
-  // ⬅️ FIX UTAMA: kalau null / undefined / kosong → kosongkan cell
-  if (v === null || v === undefined || String(v).trim() === "") {
-    return `
-      <td class="td-center"></td>
-    `;
-  }
-
-  const val = String(v).trim();
-
-  if (val === "✅") {
-    return `
-      <td class="td-center">
-        <span class="status-badge status-ok" title="Hadir"></span>
-      </td>`;
-  }
-
-  if (val === "TP") {
-    return `
-      <td class="td-center">
-        <span class="status-badge status-tp" title="Tugas Pengganti">TP</span>
-      </td>`;
-  }
-
-  // ⬅️ hanya muncul kalau memang ADA nilai tapi bukan OK / TP
-  return `
-    <td class="td-center">
-      <span class="status-badge status-no" title="Tidak Hadir"></span>
-    </td>`;
-}
-
-
-/* ================= AUTOCOMPLETE ================= */
-const globalSuggest = document.getElementById("globalSuggest");
-
-function setupSuggest(input, values) {
-  input.addEventListener("input", () => {
-    const q = input.value.toLowerCase().trim();
-    globalSuggest.innerHTML = "";
-
-    if (!q) {
-      globalSuggest.style.display = "none";
-      clearTimeout(_filterDebounce);
-      _filterDebounce = setTimeout(applyFilter, 300);
-      return;
-    }
-
-    const match = values.filter(v =>
-      v.toLowerCase().includes(q)
-    ).slice(0, 12);
-
-    if (!match.length) {
-      globalSuggest.style.display = "none";
-      clearTimeout(_filterDebounce);
-      _filterDebounce = setTimeout(applyFilter, 300);
-      return;
-    }
-
-    match.forEach(v => {
-      const div = document.createElement("div");
-      div.textContent = v;
-      div.onclick = () => {
-        input.value = v;
-        globalSuggest.style.display = "none";
-        applyFilter();
-      };
-      globalSuggest.appendChild(div);
-    });
-
-    const rect = input.getBoundingClientRect();
-    globalSuggest.style.left = rect.left + "px";
-    globalSuggest.style.top = rect.bottom + window.scrollY + "px";
-    globalSuggest.style.width = rect.width + "px";
-    globalSuggest.style.display = "block";
-
-    clearTimeout(_filterDebounce);
-    _filterDebounce = setTimeout(applyFilter, 300);
-  });
-}
-
-document.addEventListener("click", (e) => {
-  if (!globalSuggest.contains(e.target)) {
-    globalSuggest.style.display = "none";
-  }
-});
-
-/* ================= KPI ================= */
-function renderKPI(rows) {
-  function pct(key) {
-    const ev = rows.filter(r => r[key] !== null && r[key] !== undefined && String(r[key]).trim() !== "");
-    if (!ev.length) return "-";
-    const ok = ev.filter(r => r[key] === "✅" || r[key] === "TP").length;
-    return Math.round((ok / ev.length) * 100) + "%";
-  }
-  document.getElementById("kpiPre").textContent        = pct("pre_test");
-  document.getElementById("kpiPost").textContent       = pct("post_test");
-  document.getElementById("kpiAssessment").textContent = pct("assessment");
-  document.getElementById("kpiMentoring").textContent  = pct("mentoring");
-  document.getElementById("kpiPembinaan").textContent  = pct("pembinaan");
-  document.getElementById("kpiAlQuran").textContent    = pct("kelas_al_quran");
-}
-
-/* ================= GLOBAL DATE HELPERS ================= */
-function toValidDate(v) {
-  if (v instanceof Date && !isNaN(v.getTime())) return v;
-  if (typeof v === "number") {
-    const d = new Date(Math.round((v - 25569) * 86400 * 1000));
-    if (!isNaN(d.getTime())) return d;
-  }
-  if (typeof v === "string") {
-    const s = v.trim();
-    if (/^\d{4}-\d{2}-\d{2}/.test(s)) { const d = new Date(s); if (!isNaN(d.getTime())) return d; }
-    if (/^\d{4}-\d{2}$/.test(s))       { const d = new Date(s + "-01"); if (!isNaN(d.getTime())) return d; }
-    if (/^[A-Za-zÀ-ÿ]{3}\s+\d{4}$/.test(s)) return null;
-    const d = new Date(s);
-    if (!isNaN(d.getTime())) return d;
-  }
-  return null;
-}
-
-const MONTH_ID = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
-
-function monthLabelSafe(v) {
-  if (typeof v === "string" && /^[A-Za-zÀ-ÿ]{3}\s+\d{4}$/.test(v.trim())) return v.trim();
-  const d = toValidDate(v);
-  if (!d) return (v ?? "-").toString();
-  return `${MONTH_ID[d.getMonth()]} ${d.getFullYear()}`;
-}
-
-function periodeFolderGeser(v) {
-    const d = toValidDate(v);
-
-    // Jika tidak bisa diparse (mis. r.tanggal sudah "Des 2025"),
-    // maka kita anggap itu sudah label periode yang benar.
-    if (!d) return monthLabelSafe(v);
-
-    const y = d.getFullYear();
-    const m = d.getMonth(); // 0=Jan..11=Dec
-
-    let startYear = y;
-    let startMonth;
-
-    if (m === 11) {                // Des
-      startMonth = 11;             // Des tahun ini
-    } else if (m === 0 || m === 1) { // Jan/Feb
-      startYear = y - 1;
-      startMonth = 11;             // Des tahun sebelumnya
-    } else if (m >= 2 && m <= 4) { // Mar-Apr-Mei
-      startMonth = 2;
-    } else if (m >= 5 && m <= 7) { // Jun-Jul-Agu
-      startMonth = 5;
-    } else {                       // Sep-Okt-Nov (8..10)
-      startMonth = 8;
-    }
-
-    return monthLabelSafe(new Date(startYear, startMonth, 1));
-}
-
-/* ================= TABLE ================= */
-function renderTable() {
-  rekapBody.innerHTML = "";
-
-  const start = (currentPage - 1) * PAGE_SIZE;
-  const rows = filteredData.slice(start, start + PAGE_SIZE);
-
-  const GAS_BASE_URL =
-    "https://script.google.com/macros/s/AKfycbwvKRX-v8Kn9xifu3Qda9soh4alsfyBhsYuRI1y6p2ruTikanaIg4Q6rQtYL83AyAw9/exec";
-
-  const fragment = document.createDocumentFragment();
-  rows.forEach(r => {
-    const tampilPeriode = monthLabelSafe(r.tanggal);
-    const periodeFolder = periodeFolderGeser(r.tanggal);
-    const nim = r.no_induk;
-    const reportUrl = `${GAS_BASE_URL}?periode=${encodeURIComponent(periodeFolder)}&nim=${encodeURIComponent(nim)}`;
-
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${r.no_induk ?? ""}</td>
-      <td class="td-bold">${r.nama ?? ""}</td>
-      <td>${r.kampus ?? ""}</td>
-      <td>${r.kelompok ?? ""}</td>
-      <td>${tampilPeriode}</td>
-      ${icon(r.pre_test)}
-      ${icon(r.post_test)}
-      ${icon(r.assessment)}
-      ${icon(r.mentoring)}
-      ${icon(r.pembinaan)}
-      ${icon(r.kelas_al_quran)}
-    `;
-    fragment.appendChild(tr);
-  });
-  rekapBody.appendChild(fragment);
-
-  pageInfo.textContent =
-    `Page ${currentPage} / ${Math.max(1, Math.ceil(filteredData.length / PAGE_SIZE))}`;
-}
-
-/* ================= MOBILE CARD RENDERER ================= */
-function iconMobile(v) {
-  if (v === null || v === undefined || String(v).trim() === "") {
-    return `<span class="status-badge" style="background:#f3f4f6;border:2px solid #e5e7eb;"></span>`;
-  }
-  const val = String(v).trim();
-  if (val === "✅") return `<span class="status-badge status-ok" title="Hadir"></span>`;
-  if (val === "TP")  return `<span class="status-badge status-tp" title="Tugas Pengganti">TP</span>`;
-  return `<span class="status-badge status-no" title="Tidak Hadir"></span>`;
-}
-
-function renderMobileCards() {
-  const container = document.getElementById("rekapMobile");
-  container.innerHTML = "";
-
-  if (!filteredData.length) {
-    container.innerHTML = `<div class="empty-state"><p>Tidak ada data ditemukan.</p></div>`;
-    return;
-  }
-
-  // Group by no_induk
-  const byNim = {};
-  filteredData.forEach(r => {
-    const key = r.no_induk || "-";
-    if (!byNim[key]) byNim[key] = [];
-    byNim[key].push(r);
-  });
-
-  const ACTS = [
-    { key: "pre_test",   label: "Pre\nTest" },
-    { key: "post_test",  label: "Post\nTest" },
-    { key: "assessment", label: "Assess\nment" },
-    { key: "mentoring",  label: "Mentor\ning" },
-    { key: "pembinaan",    label: "Pem\nbinaan" },
-    { key: "kelas_al_quran", label: "Al-\nQur'an" },
-  ];
-
-  Object.entries(byNim).forEach(([nim, rows]) => {
-    const first = rows[0];
-
-    const wrap = document.createElement("div");
-    wrap.style.marginBottom = "20px";
-
-    // Hitung KPI untuk awardee ini
-    const KPI_ACTS = [
-      { key: "pre_test",       label: "Pre-test" },
-      { key: "post_test",      label: "Post-test" },
-      { key: "assessment",     label: "Assessment" },
-      { key: "mentoring",      label: "Mentoring" },
-      { key: "pembinaan",      label: "Pembinaan" },
-      { key: "kelas_al_quran", label: "Al-Qur'an" },
-    ];
-    const kpiHtml = KPI_ACTS.map(a => {
-      const ev = rows.filter(r => r[a.key] !== null && r[a.key] !== undefined && String(r[a.key]).trim() !== "");
-      const val = ev.length
-        ? Math.round(ev.filter(r => r[a.key] === "✅" || r[a.key] === "TP").length / ev.length * 100) + "%"
-        : "–";
-      return `<div class="mobile-kpi-item"><span class="mk-label">${a.label}</span><span class="mk-val">${val}</span></div>`;
-    }).join("");
-
-    // Header awardee
-    wrap.innerHTML = `
-      <div class="awardee-header">
-        <div class="aw-nim">${nim}</div>
-        <div class="aw-nama">${first.nama ?? "-"}</div>
-        <div class="aw-meta">${first.kampus ?? ""} ${first.kelompok ? "· Kel " + first.kelompok : ""}</div>
-      </div>
-      <div class="mobile-kpi-strip">${kpiHtml}</div>
-      <div class="periode-cards" id="pc_${nim.replace(/\W/g,'_')}"></div>
-    `;
-    container.appendChild(wrap);
-
-    const pcContainer = wrap.querySelector(`#pc_${nim.replace(/\W/g,'_')}`);
-
-    rows.forEach(r => {
-      const label = monthLabelSafe(r.tanggal);
-      const card = document.createElement("div");
-      card.className = "periode-card";
-      card.innerHTML = `
-        <div class="periode-card-head">
-          <svg class="pc-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1f3c88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <span>${label}</span>
-        </div>
-        <div class="activity-grid">
-          ${ACTS.map(a => `
-            <div class="activity-item">
-              ${iconMobile(r[a.key])}
-              <span class="act-label">${a.label.replace('\n','<br>')}</span>
-            </div>
-          `).join('')}
-        </div>
-      `;
-      pcContainer.appendChild(card);
-    });
-  });
-}
-
-/* ================= MULTI PERIODE UI HELPERS ================= */
-function updatePeriodeBtnLabel() {
-  const labelEl = document.getElementById("periodeBtnLabel");
-  if (!selectedPeriode.length) {
-    labelEl.textContent = "Semua Periode";
-    return;
-  }
-  if (selectedPeriode.length === 1) {
-    labelEl.textContent = selectedPeriode[0];
-    return;
-  }
-  labelEl.textContent = `${selectedPeriode[0]} +${selectedPeriode.length - 1}`;
-}
-
-function syncHiddenSelect() {
-  // hidden select tetap ada (compat), kita set selected biar konsisten
-  const opts = Array.from(fPeriode.options);
-  opts.forEach(o => {
-    if (!o.value) return; // skip option "Semua Periode"
-    o.selected = selectedPeriode.includes(o.value);
-  });
-}
-
-function rebuildSelectedPeriodeFromChecks() {
-  const checks = Array.from(document.querySelectorAll('#periodeList input[type="checkbox"]:checked'));
-  selectedPeriode = checks.map(c => c.value);
-  updatePeriodeBtnLabel();
-  syncHiddenSelect();
-}
-
-/* ================= FILTER ================= */
-function applyFilter() {
-  const nimVal = fNoInduk.value.trim();
-
-  const emptyEl = document.getElementById("emptyState");
-  const rekapEl = document.getElementById("rekapSection");
-  const kpiEl   = document.getElementById("kpiStrip");
-
-  if (!nimVal) {
-    rekapEl.style.display = "none";
-    kpiEl.style.display   = "none";
-    emptyEl.style.display = "block";
-    return;
-  }
-
-  emptyEl.style.display = "none";
-  rekapEl.style.display = "block";
-  kpiEl.style.display   = "block";
-
-  filteredData = rawData
-    .filter(r =>
-      (r.no_induk || "").toLowerCase().includes(nimVal.toLowerCase()) &&
-      (!fNama.value || (r.nama || "").toLowerCase().includes(fNama.value.toLowerCase())) &&
-      (!fKampus.value || (r.kampus || "").toLowerCase().includes(fKampus.value.toLowerCase())) &&
-      (!fKelompok.value || (r.kelompok || "").toLowerCase().includes(fKelompok.value.toLowerCase())) &&
-      (selectedPeriode.length === 0 || selectedPeriode.includes(monthLabel(r.tanggal)))
-    )
-    .sort((a, b) => {
-      const nimCmp = (a.no_induk || "").localeCompare((b.no_induk || ""), "id");
-      if (nimCmp !== 0) return nimCmp;
-      return (a.tanggal || "").localeCompare((b.tanggal || ""), "id");
-    });
-
-  currentPage = 1;
-  renderKPI(filteredData);
-  renderTable();
-  renderMobileCards();
-  renderQuarterly(filteredData);
-}
-
-function resetFilter() {
-  fNoInduk.value = "";
-  const _ns = document.getElementById("nimSuggest");
-  if (_ns) _ns.style.display = "none";
-  document.getElementById("kpiStrip").style.display = "none";
-  fNama.value = "";
-  fKampus.value = "";
-  fKelompok.value = "";
-
-  // reset hidden select juga
-  fPeriode.value = "";
-
-  // reset multi periode
-  selectedPeriode = [];
-  const checks = document.querySelectorAll('#periodeList input[type="checkbox"]');
-  checks.forEach(c => c.checked = false);
-  updatePeriodeBtnLabel();
-  syncHiddenSelect();
-
-  applyFilter();
-
-  // opsional: bersihkan query string agar kembali "normal"
-  // history.replaceState(null, "", "rekap.html");
-}
-
-/* ================= PAGINATION ================= */
-function goFirst(){ currentPage = 1; renderTable(); }
-function goPrev(){ if(currentPage > 1){ currentPage--; renderTable(); } }
-function goNext(){
-  const maxPage = Math.max(1, Math.ceil(filteredData.length / PAGE_SIZE));
-  if(currentPage < maxPage){
-    currentPage++;
-    renderTable();
-  }
-}
-function goLast(){
-  currentPage = Math.max(1, Math.ceil(filteredData.length / PAGE_SIZE));
-  renderTable();
-}
-
-/* ================= LOAD DATA ================= */
-async function init() {
-  /* ---- 1. Load daftar awardee RINGAN untuk autocomplete (dari mahasiswa_bsi) ---- */
-  let awardeeList = [];
-  {
-    let from = 0;
-    while (true) {
-      const { data, error } = await supabaseClient
-        .from("mahasiswa_bsi")
-        .select("no_induk, nama, kampus")
-        .range(from, from + 999);
-      if (error || !data || !data.length) break;
-      awardeeList = awardeeList.concat(data.map(r => ({
-        nim: r.no_induk || "",
-        nama: r.nama || "",
-        kampus: r.kampus || ""
-      })));
-      if (data.length < 1000) break;
-      from += 1000;
-    }
-  }
-
-  /* ---- 2. Load rekap_bsi HANYA untuk keperluan periode filter ---- */
-  let all = [];
-  {
-    let from = 0;
-    while (true) {
-      const { data, error } = await supabaseClient
-        .from("rekap_bsi")
-        .select("no_induk,nama,kampus,kelompok,tanggal,pre_test,post_test,assessment,mentoring,pembinaan,kelas_al_quran")
-        .range(from, from + 999);
-      if (error || !data || !data.length) break;
-      all = all.concat(data);
-      if (data.length < 1000) break;
-      from += 1000;
-    }
-  }
-
-  rawData = filteredData = all;
-
-  // Rich NIM suggest dropdown (pakai class nim-suggestion-box dari style.css)
-  const nimSuggest = document.getElementById("nimSuggest");
-
-  function showNimSuggest(q) {
-    nimSuggest.innerHTML = "";
-    if (!q) { nimSuggest.style.display = "none"; return; }
-
-    const matches = awardeeList.filter(a =>
-      a.nim.toLowerCase().includes(q) || a.nama.toLowerCase().includes(q)
-    ).slice(0, 15);
-
-    if (!matches.length) { nimSuggest.style.display = "none"; return; }
-
-    matches.forEach(a => {
-      const item = document.createElement("div");
-      item.className = "nim-suggestion-item";
-      item.innerHTML = `<strong>${a.nim}</strong><span>${a.nama} — ${a.kampus}</span>`;
-      item.addEventListener("mousedown", (e) => {
-        e.preventDefault();
-        fNoInduk.value = a.nim;
-        nimSuggest.style.display = "none";
-        applyFilter();
-      });
-      nimSuggest.appendChild(item);
-    });
-    nimSuggest.style.display = "block";
-  }
-
-  fNoInduk.addEventListener("input", () => {
-    showNimSuggest(fNoInduk.value.trim().toLowerCase());
-    clearTimeout(_filterDebounce);
-    _filterDebounce = setTimeout(applyFilter, 300);
-  });
-  fNoInduk.addEventListener("blur", () => {
-    setTimeout(() => { nimSuggest.style.display = "none"; }, 150);
-  });
-  fNoInduk.addEventListener("focus", () => {
-    if (fNoInduk.value.trim()) showNimSuggest(fNoInduk.value.trim().toLowerCase());
-  });
-
-  setupSuggest(fNama, [...new Set(all.map(r => (r.nama || "")).filter(Boolean))]);
-  setupSuggest(fKampus, [...new Set(all.map(r => (r.kampus || "")).filter(Boolean))]);
-  setupSuggest(fKelompok, [...new Set(all.map(r => (r.kelompok || "")).filter(Boolean))]);
-
-  /* ===== PERIODE SOURCE ===== */
-  const periodeArr = [...new Set(all.map(r => monthLabel(r.tanggal)))]
-    .sort((a,b) => {
-      return a.localeCompare(b, "id");
-    });
-
-  /* ===== Populate hidden select (compat) ===== */
-  // Pastikan option default tetap ada
-  // Lalu tambahkan option periode
-  periodeArr.forEach(p => fPeriode.add(new Option(p, p)));
-
-  /* ===== Build custom checkbox list ===== */
-  const list = document.getElementById("periodeList");
-  list.innerHTML = "";
-
-  periodeArr.forEach(p => {
-    // <label> = klik di mana saja aktif
-    const label = document.createElement("label");
-    label.className = "periode-item";
-    label.innerHTML = `
-      <input type="checkbox" value="${p}">
-      <span>${p}</span>
-    `;
-    // Saat klik label, checkbox auto toggle; kita cukup sync state di change
-    const cb = label.querySelector("input");
-    cb.addEventListener("change", () => {
-      rebuildSelectedPeriodeFromChecks();
-      applyFilter();
-    });
-    list.appendChild(label);
-  });
-
-  /* ===== Buttons All / Clear ===== */
-  document.getElementById("periodeSelectAll").addEventListener("click", (e) => {
-    e.stopPropagation();
-    document.querySelectorAll('#periodeList input[type="checkbox"]').forEach(c => c.checked = true);
-    rebuildSelectedPeriodeFromChecks();
-    applyFilter();
-  });
-
-  document.getElementById("periodeClear").addEventListener("click", (e) => {
-    e.stopPropagation();
-    document.querySelectorAll('#periodeList input[type="checkbox"]').forEach(c => c.checked = false);
-    rebuildSelectedPeriodeFromChecks();
-    applyFilter();
-  });
-
-  /* ================= AUTO-FILL FILTER FROM HOME ================= */
-  if (_filterType && _filterValue) {
-    // value dari URL harus aman (decode)
-    const v = decodeURIComponent(_filterValue);
-
-    if (_filterType === "peserta") {
-      // best effort: isi Nama; jika Home nanti kirim no_induk, tetap bisa dicari di Nama via includes? (tidak), tapi default Home kirim nama.
-      fNama.value = v;
-    } else if (_filterType === "kampus") {
-      fKampus.value = v;
-    } else if (_filterType === "kelompok") {
-      fKelompok.value = v;
-    }
-  }
-
-  // init label periode
-  updatePeriodeBtnLabel();
-
-  applyFilter();
-}
-
-/* ================= QUARTERLY SUMMARY ================= */
-const QTR_ACTS = [
-  { key: "pembinaan",      label: "Pembinaan" },
-  { key: "mentoring",      label: "Mentoring" },
-  { key: "kelas_al_quran", label: "Kelas Al-Qur'an" },
-];
-
-// Quarter range label: "Des 2025" → "Des 2025 – Feb 2026"
-const MONTH_ID_FULL = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
-function qtrRangeLabel(startLabel) {
-  // startLabel contoh: "Des 2025"
-  const parts = startLabel.split(" ");
-  const mIdx  = MONTH_ID_FULL.indexOf(parts[0]);
-  const yr    = parseInt(parts[1]);
-  if (mIdx < 0 || isNaN(yr)) return startLabel;
-  // end bulan = startMonth + 2
-  const endMIdx = (mIdx + 2) % 12;
-  const endYr   = mIdx + 2 >= 12 ? yr + 1 : yr;
-  return `${startLabel} – ${MONTH_ID_FULL[endMIdx]} ${endYr}`;
-}
-
-function pctVal(rows, key) {
-  const ev = rows.filter(r => r[key] !== null && r[key] !== undefined && String(r[key]).trim() !== "");
-  if (!ev.length) return null;
-  const ok = ev.filter(r => r[key] === "✅" || r[key] === "TP").length;
-  return Math.round((ok / ev.length) * 100);
-}
-
-function colorClass(v) {
-  if (v === null) return "";
-  if (v >= 80) return "high";
-  if (v >= 50) return "mid";
-  return "low";
-}
-
-function renderQuarterly(rows) {
-  const container = document.getElementById("quarterlySummary");
-  container.innerHTML = "";
-  if (!rows.length) return;
-
-  // Group by quarter (periodeFolderGeser)
-  const groups = {};
-  rows.forEach(r => {
-    const key = periodeFolderGeser(r.tanggal);
-    if (!groups[key]) groups[key] = [];
-    groups[key].push(r);
-  });
-
-  // Sort quarter keys chronologically
-  const sortedKeys = Object.keys(groups).sort((a, b) => {
-    const toDate = s => {
-      const [m, y] = s.split(" ");
-      return new Date(parseInt(y), MONTH_ID_FULL.indexOf(m), 1);
-    };
-    return toDate(a) - toDate(b);
-  });
-
-  if (!sortedKeys.length) return;
-
-  // Title
-  const title = document.createElement("div");
-  title.className = "qtr-section-title";
-  title.innerHTML = `
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1f3c88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    Ringkasan per Kuartal
-  `;
-  container.appendChild(title);
-
-  const cardsWrap = document.createElement("div");
-  cardsWrap.className = "qtr-cards";
-
-  sortedKeys.forEach((qKey, idx) => {
-    const qRows = groups[qKey];
-    const range = qtrRangeLabel(qKey);
-
-    // Hitung per aktivitas
-    const actData = QTR_ACTS.map(a => ({
-      label: a.label,
-      pct: pctVal(qRows, a.key),
-    }));
-
-    // Rata-rata (abaikan null)
-    const valid = actData.filter(a => a.pct !== null);
-    const avg   = valid.length ? Math.round(valid.reduce((s, a) => s + a.pct, 0) / valid.length) : null;
-    const avgClass = avg !== null ? colorClass(avg) : "";
-
-    const card = document.createElement("div");
-    card.className = "qtr-card";
-    card.innerHTML = `
-      <div class="qtr-card-head">
-        <div>
-          <div class="qtr-card-title">Kuartal ${idx + 1}</div>
-          <div class="qtr-card-range">${range}</div>
-        </div>
-        ${avg !== null
-          ? `<span class="qtr-avg-badge avg-${avgClass}">${avg}% rata-rata</span>`
-          : `<span class="qtr-avg-badge">–</span>`}
-      </div>
-      <div class="qtr-detail-grid">
-        ${actData.map(a => {
-          const cls  = a.pct !== null ? colorClass(a.pct) : "";
-          const fill = a.pct !== null ? a.pct : 0;
-          return `
-            <div class="qtr-detail-item">
-              <span class="qtr-detail-label">${a.label}</span>
-              <span class="qtr-detail-pct pct-${cls}">${a.pct !== null ? a.pct + "%" : "–"}</span>
-              <div class="qtr-detail-bar">
-                <div class="qtr-detail-bar-fill bar-${cls}" style="width:${fill}%"></div>
-              </div>
-            </div>`;
-        }).join("")}
-      </div>
-    `;
-    cardsWrap.appendChild(card);
-  });
-
-  container.appendChild(cardsWrap);
-}
-
-/* ===== Dropdown open/close logic (mobile friendly) ===== */
-const periodeBtn = document.getElementById("periodeBtn");
-const periodePanel = document.getElementById("periodePanel");
-const periodeDropdown = document.getElementById("periodeDropdown");
-
-periodeBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  const isOpen = periodePanel.classList.toggle("open");
-  periodeBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-});
-
-document.addEventListener("click", (e) => {
-  if (!periodeDropdown.contains(e.target)) {
-    periodePanel.classList.remove("open");
-    periodeBtn.setAttribute("aria-expanded", "false");
-  }
-});
-
-/* ===== NOTE: sebelumnya ada listener fPeriode change. sekarang hidden select, tidak dipakai user langsung. ===== */
-/* fPeriode.addEventListener("change", applyFilter); */
-
-init();
-</script>
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-bottom-nav">
