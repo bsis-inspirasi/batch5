@@ -1,5 +1,5 @@
 {
-  "pembinaan": {
+  "hadir-pembinaan": {
     "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSfCz1ROBQshmR1-byRf3utKFdGwQoYKJf48fVvJDaBxF7nDqg/viewform",
     "prefill": {
       "nim": "entry.400969128",
@@ -60,7 +60,7 @@
       "kampus": "entry.1125150239"
     }
   },
-  "feedback-pembinaan": {
+  "pembinaan": {
     "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSeaVhboKjZX-Cx6MHhmWFhFYVjiIPW9izX6lahw7bD8N8WOZw/viewform",
     "prefill": {
       "nim": "entry.400969128",
